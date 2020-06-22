@@ -37,7 +37,7 @@ session_start();
         $error_msg .= "Your name is only letters and white space allowed.  <br/>";
       }
       $full_name = mysqli_real_escape_string($conn, $full_name);
-      echo "full name: " . $full_name;
+    //  echo "full name: " . $full_name;
     }
 
     if (empty($_POST["email"])){
@@ -49,7 +49,7 @@ session_start();
         $error_msg .= "Invalid email format. <br/>";
       }
       $mail_from = mysqli_real_escape_string($conn, $mail_from);
-      echo "email: " . $mail_from;
+      //echo "email: " . $mail_from;
     }
 
     if (empty($_POST["piece_name"])){
@@ -61,7 +61,7 @@ session_start();
         $error_msg .= "Your piece name is only letters, apostrophes, # and white space allowed. <br/>";
       }
       $piece_name = mysqli_real_escape_string($conn, $piece_name);
-      echo "piece name: " . $piece_name;
+    //  echo "piece name: " . $piece_name;
     }
 
     if (empty($_POST["imslp"])) {
@@ -107,7 +107,7 @@ session_start();
         $error_msg .= "Invalid URL. Please follow the format: https://imslp.org. <br/>";
       }
       $imslp = mysqli_real_escape_string($conn, $imslp);
-      echo "imslp link: " . $imslp;
+      //echo "imslp link: " . $imslp;
     }
 
     if (!isset($_POST["tuning_note"])){
@@ -143,9 +143,10 @@ session_start();
         $error_msg .= "Please let us know that you will be sending an email in the description box. <br/>";
       }
       else if ($tempo == "custom"){
+        $bpm = 0;
         $custom_bpm = test_input($_POST['custom_bpm']);
         $custom_bpm = mysqli_real_escape_string($conn, $custom_bpm);
-        echo "custom tempo: " . $custom_bpm;
+      //  echo "custom tempo: " . $custom_bpm;
       }
     }
 
@@ -162,7 +163,7 @@ session_start();
     else {
       $questions = test_input($_POST['question']);
       $questions = mysqli_real_escape_string($conn, $questions);
-      echo "Question/Comments: " . $questions;
+    //  echo "Question/Comments: " . $questions;
     }
 
 
@@ -171,7 +172,7 @@ session_start();
       $tracking_num = mt_rand(1000000,mt_getrandmax());
 
       $sql = "INSERT INTO users (tracking_num, full_name, mail_from, piece_name, imslp, music_file, tuning_note, bpm, custom_bpm, note_type, recording, questions)
-      SELECT $tracking_num, '$full_name', '$mail_from', '$piece_name', '$imslp', '$music_file', '$tuning_note', $bpm, '$custom_bpm', '$note_type', '$recording', '$questions'
+      SELECT '$tracking_num', '$full_name', '$mail_from', '$piece_name', '$imslp', '$music_file', '$tuning_note', '$bpm', '$custom_bpm', '$note_type', '$recording', '$questions'
       WHERE NOT EXISTS (SELECT * FROM users
         WHERE tracking_num=$tracking_num ) LIMIT 1;";
       $result = mysqli_query($conn,$sql);
@@ -179,7 +180,7 @@ session_start();
 
       if ($result) {
         $_SESSION["tracking"] = $tracking_num;
-        //header("Location: success.php");
+        header("Location: success.php");
 
       } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

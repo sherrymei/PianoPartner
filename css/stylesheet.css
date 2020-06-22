@@ -30,6 +30,22 @@ legend {
   display: block;
 }
 
+#header{
+  position:fixed;
+  height: 75px;
+  display:block;
+  width: 100%;
+  background: #ffccff;
+  z-index:1;
+  padding: 20px 0 0 0;
+  top:0px;
+  text-align: right;
+}
+
+#tracking {
+  font-size: 14px;
+}
+
 @media only screen and (max-width: 600px) {
   textarea {
     width: 100%;

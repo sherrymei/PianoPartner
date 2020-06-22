@@ -2,10 +2,10 @@ DROP DATABASE IF EXISTS `pianopartner`;
 CREATE DATABASE `pianopartner`;
 USE `pianopartner`;
 
-DELETE FROM users ;
+DROP TABLE IF EXISTS users ;
 
 CREATE TABLE users (
-	user_id int AUTO_INCREMENT PRIMARY KEY not null,
+	id int AUTO_INCREMENT PRIMARY KEY not null,
     tracking_num int not null UNIQUE,
     full_name varchar(256) not null,
     mail_from varchar(256) not null,
@@ -21,7 +21,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (tracking_num, full_name, mail_from, piece_name, imslp, music_file, tuning_note, bpm, custom_bpm, note_type, recording, questions)
-VALUES (11001100, 'Sherry', 'sherry@pianopartner.com', 'Cinderella', 'https://www.google.com', null, 'A', 70, null, 'half note', 'youtube', 'no questions');
+VALUES (11001100, 'Sherry', 'sherry@pianopartner.com', 'Cinderella', 'https://www.google.com', '', 'A', 70, '', 'half note', 'youtube', 'no questions');
 
 
 INSERT INTO users (tracking_num, full_name, mail_from, piece_name, imslp, music_file, tuning_note, bpm, custom_bpm, note_type, recording, questions)
