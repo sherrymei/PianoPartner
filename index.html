@@ -1,78 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="author" content="">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link href="css/style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Piano Partner</title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" >
+    <link rel="stylesheet" type="text/css" href="fullpage.js/dist/fullpage.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
 </head>
 
 <body>
+    <div id="fullpage">
+        <div class="section">
+            <h1> Piano Partner</h1>
+            <p>Online store for piano accompaniment to all classical and custom pieces</p>
+        </div>
+        <div class="section">
+            <h3>About</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Zlm7X7tJXhs" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen ></iframe>
+            <p>What's the purpose? Classical karaoke</p>
+            <p>When you are a solo player, it's kind of difficult to imagine playing as part of a whole when you require an accompanist during your perforamnces</p>
+            <p>The offer here(recording) is not to replace true accompanists as they wil follow you as you perform and support you as you creatively perform as a soloist - the perpose of these recording is to give an overal sense of practicing with the whole.</p>
+        </div>
+        <div class="section">
+            <h3> Order </h3>
+            <p> Difficulty is subject to pianist interpretation at the end </p>
+            <p>Step 1:
+                This form information will be sent us. Automatic response of we received it </p>
+            <p>Step 2:
+                Respond with my indication of Level and price and answers to any questions that they or I may have along with Paypal account, let them know how long it’ll take before i can get recording to them</p>
+            <p>Step 3:
+                You will pay via Paypal
+                Automatic response that we have received payment</p>
+            <p>Step 4:
+                Respond you with a private Youtube link, please give us any feedback to help better serve you and create better products</p>
 
-  <h1> Piano Partner</h1>
-  <p>Online store for piano accompaniment to all classical and custom pieces</p>
-
-  <h3>About</h3>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/Zlm7X7tJXhs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <p>What's the purpose? Classical karaoke</p>
-  <p>When you are a solo player, it's kind of difficult to imagine playing as part of a whole when you require an accompanist during your perforamnces</p>
-  <p>The offer here(recording) is not to replace true accompanists as they wil follow you as you perform and support you as you creatively perform as a soloist - the perpose of these recording is to give an overal sense of practicing with the whole.</p>
-
-  <h3> Order </h3>
-  <p> Difficulty is subject to pianist interpretation at the end </p>
-  <p>Step 1:, this form information will be sent us </p>
-Automatic response of we received it
-  <p>Step 2:
-Respond with my indication of Level and price and answers to any questions that they or I may have along with Paypal account, let them know how long it’ll take before i can get recording to them</p>
-<p>Step 3:
-You will pay via Paypal
-Automatic response that we have received payment</p>
-<p>Step 4:
-Respond you with a private Youtube link, please give us any feedback to help better serve you and create better products</p>
-  <form>
-    <label for="customer_name">Customer name:</label>
-    <input type="text" name="customer_name" id="customer_name">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
-    <label for="piece_name">Name of piece:</label>
-    <input type="text" name="piece_name" id="piece_name">
-    <p> Tuning note </p>
-    <input type="radio" id="note_A" name="tuning_note" value="note_A">
-    <label for="note_A">A</label>
-    <input type="radio" id="note_Bb" name="tuning_note" value="note_Bb">
-    <label for="note_Bb">Bb</label>
-    <input type="radio" id="note_C" name="tuning_note" value="note_C">
-    <label for="note_C">C</label>
-    <p>Tempo</p>
-    <label for="bpm">Beats per Minute: 0 for custom </label>
-    <input type="number" name="bpm" id="bpm">
-    <p>If custom tempo, provide text description of tempo or send a recording of solo perforamce to align accompaniment with</p>
-    <label for="custom_bpm">Custom Tempo:</label> 
-    <input type="text" name="custom_bpm" id="custom_bpm">
-    <p>Per Note Type</p>
-    <input type="radio" id="half_note" name="note_type" value="half_note">
-    <label for="half_note">Half Note</label>
-    <input type="radio" id="quarter_note" name="note_type" value="quarter_note">
-    <label for="quarter_note">Quarter Note</label>
-    <input type="radio" id="eighth_note" name="note_type" value="eighth_note">
-    <label for="eighth_note">Eighth Note </label>
-    <p>Send link to imslp for the accompaniment part or attach a pdf</p>
-    <label for="imslp">IMSLP:</label>
-    <input type="url" id="imslp" name="imslp">
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile">
-    <input type="submit" value="Submit">
-  </form>
-
-
-  
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="js/script.js"></script>
+            <!-- <button type="button" name="order_button" value="order">Order</button> -->
+            <a href='order_form.php' class="button-xlarge pure-button pure-button-primary">Order</a>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="fullpage.js/vendors/scrolloverflow.js"></script>
+    <script src="fullpage.js/dist/fullpage.js"></script>
+    <script src=js/index.js></script>
 </body>
 
 </html>
