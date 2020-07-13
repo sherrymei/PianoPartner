@@ -1,0 +1,369 @@
+body {
+  font-family: Book Antiqua;
+  font-size: 16px;
+}
+
+h1, h3{
+  text-align: center;
+}
+
+h1 {
+  color: #4e0606;
+}
+
+/* FORM */
+form {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 20px;
+}
+
+fieldset {
+   margin: 0;
+   padding: 0.35em 0 0.75em;
+   border: 0;
+   margin-bottom: 10px;
+}
+
+legend {
+   display: block;
+   width: 97%;
+   padding: 0.8em 0 0.8em 1em;
+   margin-bottom: 0.3em;
+   color: #F8F8FF;
+   border-bottom: 1px solid #e5e5e5;
+   background-color: #4e0606;
+   font-weight: bold;
+}
+
+label {
+  display: block;
+  margin: 0.5em 0 0.2em;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+  font-family: inherit;
+  padding: 0.5em 0.6em;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  display: block;
+  margin: 0.25em 0;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: 0;
+  border-color: #000;
+}
+
+input[type="radio"]{
+  margin: 0 0.5em;
+}
+input[type="radio"]:focus{
+  outline: thin solid #129FEA;
+  outline: 1px auto #129FEA;
+}
+
+textarea {
+  resize: none;
+  width: 50%;
+  height: 8em;
+
+}
+
+button,
+.button {
+   margin: 0.35em 0;
+   font-family: inherit;
+   padding: 0.5em 1em;
+   color: rgba(0, 0, 0, 0.80);
+   border: none rgba(0, 0, 0, 0);
+   background-color: #E6E6E6;
+   text-decoration: none;
+   border-radius: 2px;
+   display: inline-block;
+   line-height: normal;
+   white-space: nowrap;
+   vertical-align: middle;
+   text-align: center;
+   cursor: pointer;
+   -webkit-user-drag: none;
+   user-select: none;
+   box-sizing: border-box;
+   font-size: 12px;
+}
+
+button:hover,
+button:focus,
+.button:hover,
+.button:focus {
+   background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
+}
+button:focus
+.button:focus {
+   outline: 0;
+}
+
+ol,ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  height: 100px;
+  background-color: #4e0606;
+  color: white;
+}
+
+ td {
+  padding: 15px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+.status {
+  text-align: center;
+}
+
+
+.step{
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+
+.input-1-2 {
+  width: 100%;
+}
+
+.tempo_div {
+  padding-left: 30px;
+}
+
+.form-error{
+  padding: 0 0 0 20px;
+  color:red;
+  font-size: 14px;
+}
+
+.beats {
+  display: block;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  color: red;
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+#menu li {
+	display:inline-block;
+	margin: 10px;
+	color: #000;
+	background:#fff;
+	background: rgba(255,255,255, 0.5);
+	-webkit-border-radius: 10px;
+            border-radius: 10px;
+}
+#menu li.active{
+	background:#666;
+	background: rgba(0,0,0, 0.5);
+	color: #fff;
+}
+#menu li a{
+	text-decoration:none;
+	color: #000;
+}
+#menu li.active a:hover{
+	color: #000;
+}
+#menu li:hover{
+	background: rgba(255,255,255, 0.8);
+}
+#menu li a,
+#menu li.active a{
+	padding: 9px 18px;
+	display:block;
+}
+#menu li.active a{
+	color: #fff;
+}
+#menu{
+	position:fixed;
+	top:0;
+	left:0;
+	height: 40px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+	margin:0;
+}
+
+
+
+#icon_logo {
+  height: 50px;
+  width: 100px;
+}
+
+#header{
+  position:absolute;
+  z-index:1;
+  top:0px;
+  right: 100px;
+}
+
+#home_header {
+  position: absolute;
+  height: 75px;
+  display:block;
+  width: 100%;
+  z-index:1;
+  padding: 20px 0 0 0;
+  top:0px;
+  text-align: left;
+}
+
+
+#login {
+  font-size: 12px;
+  display: inline-block;
+}
+
+
+
+#about_section, #order_section, #home_section, #contact_section{
+  padding: 0 40px 0 40px;
+}
+
+#home_section, #contact_section {
+  text-align: center;
+}
+
+/* #home_section{
+  color: #F7F7F2 ;
+  background-size: cover;
+  background-attachment: fixed;
+  background-image: url(../images/Theater_stage.jpg);
+} */
+
+
+#home_section h1{
+  font-family: 'Dancing Script';
+  font-size: 140px;
+  text-shadow: 20px 0px 50px #D2BF55;
+
+}
+
+
+#status_bookmark {
+  text-align: center;
+}
+
+#statusBox {
+  margin: 5%;
+  padding: 20px;
+  border: 5px solid #4e0606;
+  width: 80vw;
+  text-align: center;
+  display:inline-block;
+}
+
+#orderd {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+  /* textarea {
+    width: 100%;
+  } */
+  form {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+  }
+
+  iframe {
+    width: 100%;
+  }
+
+  #home_section h1{
+    font-size: 100px;
+  }
+
+  #contact_section form input[type="text"]{
+    width: 100%;
+  }
+
+  #contact_section form textarea{
+    width: 100%;
+  }
+
+}

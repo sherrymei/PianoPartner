@@ -1,85 +1,101 @@
 <?php
 
-include 'includes/connect_mysql.php';
+include 'includes/html_head.php';
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Piano Partner</title>
-  <meta name="author" content="">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/stylesheet.css" >
-  <link rel="stylesheet" type="text/css" href="fullpage.js/dist/fullpage.css" />
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-</head>
 
 <body>
 
   <?php
 
-  $tracking_num = $error_msg = "";
+  $order_num = $error_msg = "";
+
+  if (session_status() == PHP_SESSION_ACTIVE) {
+    session_unset();
+    session_destroy();
+  }
 
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $tracking_num = $_GET["tracking_num"];
-    if (empty($tracking_num)){
+    if (empty($_GET["order_num"])){
       $error_msg = "";
     }
-    else if (!preg_match("/^[0-9]+$/",$tracking_num)) {
-      $error_msg .= "Your tracking number is only numbers allowed.<br/>";
-    }
-    else {
-      $_SESSION["tracking"] = $tracking_num;
-      header("Location: status.php?tracking=". $tracking_num);
+    else{
+      $order_num = test_input($_GET["order_num"]);
+      if (!preg_match("/^[0-9]+$/",$order_num)) {
+        $error_msg .= "Your order number is only numbers allowed.<br/>";
+      }
+      else {
+        $_SESSION["order"] = $order_num;
+        header("Location: status.php?order=". $order_num);
+      }
     }
   }
 
   ?>
 
+  <ul id="menu">
+
+    <li><a href="index.php"><img src ="images/pianopartner.png" id="icon_logo"></a></li>
+    <li data-menuanchor="about"><a href="#about">About</a></li>
+    <li data-menuanchor="order"><a href="#order">Order</a></li>
+    <li data-menuanchor="contact"><a href="#contact">Contact</a></li>
+  </ul>
+
+
   <div id="fullpage">
     <div id="header">
-      <div id="tracking">
-        <form method="GET" class="pure-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-          <span><?php echo $error_msg ?></span>
-          <label for="tracking_num">Check your status: </label>
-          <input type="text" id="tracking_num" name="tracking_num" placeholder="Tracking Number">
-          <button type="submit" name="submit" class="pure-button pure-button-primary">Submit</button>
+      <form method="GET" id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <span><?php echo $error_msg ?></span>
+        <label for="order_num">Check your status: </label>
+        <input type="text" id="order_num" name="order_num" placeholder="Order Number">
+        <button type="submit" name="submit" class="">Submit</button>
+      </form>
+    </div>
+    <div class="section" id="home_section">
+      <h1 id="main_h1"> Backlight Recordings</h1>
+      <p>Online store for piano accompaniment to all classical and custom pieces</p>
+    </div>
+    <div class="section" id="about_section">
+      <h1>About</h1>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Zlm7X7tJXhs" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen ></iframe>
+      <p>What's the purpose? Classical karaoke.
+        When you are a solo player, it's kind of difficult to imagine playing as part of a whole when you require an accompanist during your perforamnces.
+        The offer here(recording) is not to replace true accompanists as they wil follow you as you perform and support you as you creatively perform as a soloist - the perpose of these recording is to give an overal sense of practicing with the whole.</p>
+      </div>
+      <div class="section" id="order_section">
+        <h1> Order Customs </h1>
+        <p> Difficulty is subject to pianist interpretation at the end </p>
+        <p><span class="step">Step 1: </span>This form information will be sent us. Automatic response of we received it </p>
+        <p><span class="step">Step 2: </span>Respond with my indication of Level and price and answers to any questions that you or I may have along with Paypal account, let you know how long it’ll take before i can get recording to you</p>
+        <p><span class="step">Step 3: </span>You will pay via Paypal Automatic response that we have received payment</p>
+        <p><span class="step">Step 4: </span>Respond you with a private Youtube link, please give us any feedback to help better serve you and create better products</p>
+        <div id="orderd"><a href='order_form.php' class="button" >Order</a></div>
+      </div>
+      <div class="section" id="contact_section">
+        <h1>Contact Us</h1>
+        <form id="contact_form">
+          <fieldset>
+            <input type="text" name="name" placeholder="Full Name" id="contact_name" class="input-1-2" onkeydown="return event.key != 'Enter';">
+            <input type="text" name="mail" placeholder="Email" id="contact_email" class="input-1-2" onkeydown="return event.key != 'Enter';">
+            <input type="text" name="subject" placeholder="Subject" id="contact_subject" class="input-1-2" onkeydown="return event.key != 'Enter';">
+            <textarea name="message" placeholder="Message" id="contact_message" class="input-1-2"></textarea>
+            <button type="button" name="submit" class="" onclick="sendEmail()">Submit</button>
+            <p id="message"></p>
+          </fieldset>
         </form>
       </div>
     </div>
-    <div class="section">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="fullpage.js/vendors/scrolloverflow.js"></script>
+    <script src="fullpage.js/dist/fullpage.js"></script>
+    <script src=js/index.js></script>
+  </body>
 
-      <h1> Piano Partner</h1>
-      <p>Online store for piano accompaniment to all classical and custom pieces</p>
-    </div>
-    <div class="section">
-      <h3>About</h3>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/Zlm7X7tJXhs" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"  allowfullscreen ></iframe>
-      <p>What's the purpose? Classical karaoke</p>
-      <p>When you are a solo player, it's kind of difficult to imagine playing as part of a whole when you require an accompanist during your perforamnces</p>
-      <p>The offer here(recording) is not to replace true accompanists as they wil follow you as you perform and support you as you creatively perform as a soloist - the perpose of these recording is to give an overal sense of practicing with the whole.</p>
-    </div>
-    <div class="section">
-      <h3> Order </h3>
-      <p> Difficulty is subject to pianist interpretation at the end </p>
-      <p>Step 1:This form information will be sent us. Automatic response of we received it </p>
-      <p>Step 2: Respond with my indication of Level and price and answers to any questions that you or I may have along with Paypal account, let you know how long it’ll take before i can get recording to you</p>
-      <p>Step 3:You will pay via Paypal Automatic response that we have received payment</p>
-      <p>Step 4:Respond you with a private Youtube link, please give us any feedback to help better serve you and create better products</p>
-
-      <!-- <button type="button" name="order_button" value="order">Order</button> -->
-      <a href='order_form.php' class="button-xlarge pure-button pure-button-primary">Order</a>
-    </div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
-  <script src=js/index.js></script>
-</body>
-
-</html>
+  </html>
