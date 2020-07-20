@@ -132,6 +132,10 @@ table {
   border-collapse: collapse;
 }
 
+caption {
+  font-size: 18px;
+}
+
 th {
   height: 100px;
   background-color: #4e0606;
@@ -141,10 +145,6 @@ th {
  td {
   padding: 15px;
   text-align: left;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 
@@ -177,42 +177,14 @@ tr:nth-child(even) {
   display: block;
 }
 
-.tooltip {
-  position: relative;
+.td_lvl{
+  font-weight: bolder;
 }
 
-.tooltip .tooltiptext {
-  color: red;
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+#rates_table {
+  margin-left:10%;
+  margin-right:auto;
 }
 
 
@@ -292,7 +264,7 @@ tr:nth-child(even) {
 
 
 
-#about_section, #order_section, #home_section, #contact_section{
+#about_section, #order_section, #home_section, #contact_section, #objective_section{
   padding: 0 40px 0 40px;
 }
 
@@ -333,6 +305,10 @@ tr:nth-child(even) {
   text-align: center;
 }
 
+
+#orderd a{
+  font-size: 20px;
+}
 
 
 

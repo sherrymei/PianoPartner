@@ -41,32 +41,36 @@ session_start();
         while ($row = $stmt->fetch_assoc()) {
             $status_row = $row["status_msg"];
             $user_id = $row["user_id"];
-            echo "<tr>";
-            echo "<td>
-            <select name=\"status\" class=\"status\" id=\"status" . $user_id . "\" onchange='updateUserStatus(" . $user_id . ");'>
-              <option value=\"Status1\" "; if ($status_row=='Status1') echo "selected"; echo ">Status 1</option>
-              <option value=\"Status2\" "; if ($status_row=='Status2') echo "selected"; echo ">Status 2</option>
-              <option value=\"Status3\" "; if ($status_row=='Status3') echo "selected"; echo ">Status 3</option>
-              <option value=\"Status4\" "; if ($status_row=='Status4') echo "selected"; echo ">Status 4</option>
+            ?>
+             <tr>
+             <td>
+            <select name="status" class="status" id="status<?php echo $user_id;?>" onchange="updateUserStatus(<?php echo $user_id;?>)">
+              <option value="Status1" <?php if ($status_row=='Status1') echo "selected"; ?>>Status 1</option>
+              <option value="Status2" <?php if ($status_row=='Status2') echo "selected"; ?>>Status 2</option>
+              <option value="Status3" <?php if ($status_row=='Status3') echo "selected"; ?>>Status 3</option>
+              <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
             </select>
-            </td>";
-            echo "<td id=\"order" . $user_id . "\">" . $row["order_num"] .  "</td>";
-            echo "<td>" . $row["full_name"] .  "</td>";
-            echo "<td>" . $row["mail_from"] .  "</td>";
-            echo "<td>" . $row["piece_name"] .  "</td>";
-            echo "<td><a target=\"_blank\" href=\"" . $row["imslp"] . "\">" . $row["imslp"] . "</td>";
-            echo "<td><a target=\"_blank\" href=\"" . $row["music_file"] . "\">" . $row["music_file"] .  "</a></td>";
-            echo "<td>" . $row["tuning_note"] .  "</td>";
-            echo "<td>" . $row["note_type"] .  "</td>";
-            echo "<td>" . $row["bpm"] .  "</td>";
-            echo "<td>" . $row["custom_bpm"] .  "</td>";
-            echo "<td>" . $row["recording"] .  "</td>";
-            echo "<td>" . $row["questions"] .  "</td>";
-            echo "</tr>";
+            </td>
+             <td id="order<?php echo $user_id;?>"> <?php echo $row["order_num"]; ?> </td>
+             <td><?php echo $row["full_name"]; ?> </td>
+             <td><?php echo $row["mail_from"]; ?> </td>
+             <td><?php echo $row["piece_name"]; ?> "</td>
+             <td><a target="_blank" href="<?php echo $row["imslp"];      ?>"><?php echo $row["imslp"]; ?></td>
+             <td><a target="_blank" href="<?php echo $row["music_file"]; ?>"><?php echo $row["music_file"]; ?> </a></td>
+             <td><?php echo $row["tuning_note"]; ?> </td>
+             <td><?php echo $row["note_type"]; ?> </td>
+             <td><?php echo $row["bpm"]; ?> </td>
+             <td><?php echo $row["custom_bpm"]; ?> </td>
+             <td><?php echo $row["recording"]; ?> </td>
+             <td><?php echo $row["questions"]; ?> </td>
+             </tr>
+             <?php
         }
       }
       else {
-        echo "<tr><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>";
+        ?>
+        <tr><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+        <?php
       }
       ?>
     </tbody>

@@ -1,6 +1,6 @@
 var myFullpage = new fullpage('#fullpage', {
   navigation: true,
-  anchors: ['main', 'about', 'order', 'contact'],
+  anchors: ['main', 'objective', 'order', 'about', 'contact'],
   css3:true,
   scrollOverflow: true,
   continuousVertical: true,

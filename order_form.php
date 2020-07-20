@@ -10,7 +10,7 @@ session_start();
 
 <body>
   <?php
-  $f_name_error = $l_name_error = $email_error = $p_name_error = $imslp_error = $file_error = $tune_note_error = $tempo_error = $bpm_error = $custom_error = $note_type_error = $recording_error = '';
+  $f_name_error = $l_name_error = $email_error = $p_name_error = $imslp_error = $musicfile_error = $tune_note_error = $tempo_error = $bpm_error = $custom_error = $note_type_error = $recording_error = '';
   $order_num = $full_name = $first_name = $last_name = $mail_from = $piece_name = $imslp = $music_file = $tuning_note = $tempo =  $bpm = $custom_bpm = $note_type = $recording = $questions = "";
 
 
@@ -61,41 +61,41 @@ session_start();
       $piece_name = $conn->real_escape_string($piece_name);
     }
 
-    $fileName = $_FILES['musicfile']['name'];
-    $fileTmpName = $_FILES['musicfile']['tmp_name'];
-    $fileSize = $_FILES['musicfile']['size'];
-    $fileError = $_FILES['musicfile']['error'];
-    $fileType = $_FILES['musicfile']['type'];
+    $music_file_name = $_FILES['musicfile']['name'];
+    $music_file_tmp_name = $_FILES['musicfile']['tmp_name'];
+    $music_file_size = $_FILES['musicfile']['size'];
+    $music_file_error = $_FILES['musicfile']['error'];
+    $music_file_type = $_FILES['musicfile']['type'];
 
-    if (is_uploaded_file($fileTmpName)){
-      $fileExt = explode('.',$fileName);
+    if (is_uploaded_file($music_file_tmp_name)){
+      $fileExt = explode('.',$music_file_name);
       $fileActualExt = strtolower(end($fileExt));
       $allowed = array('application/pdf');
-      if ($fileError == 0){
-        if (in_array($fileType, $allowed)) {
-          if ($fileSize<100000){
+      if ($music_file_error == 0){
+        if (in_array($music_file_type, $allowed)) {
+          if ($music_file_size<100000){
             $fileNewName = uniqid('',true).".".$fileActualExt;
             $fileDestination = 'uploads/'.$fileNewName;
-            move_uploaded_file($fileTmpName,$fileDestination);
+            move_uploaded_file($music_file_tmp_name,$fileDestination);
             $music_file = $fileDestination;
           }
           else {
-            $file_error .= "Your file is too big!<br/>";
+            $musicfile_error .= "Your file is too big!<br/>";
           }
         }
         else {
-          $file_error .= "This file is not allowed!<br/>";
+          $musicfile_error .= "This file is not allowed!<br/>";
         }
       }
       else {
-          $file_error .= "There was an error uploading your file!<br/>";
+          $musicfile_error .= "There was an error uploading your file!<br/>";
       }
     }
 
-    if (empty($_POST["imslp"]) && $fileError == 4) {
+    if (empty($_POST["imslp"]) && $music_file_error == 4) {
       $imslp_error .= "no file uploaded or imslp  link is missing.";
     }
-    else if (empty($_POST["imslp"]) && $fileError == 0){
+    else if (empty($_POST["imslp"]) && $music_file_error == 0){
         $imslp_error .= "";
     }
     else {
@@ -120,28 +120,62 @@ session_start();
       $note_type = test_input($_POST['note_type']);
     }
 
+    $custom_file_name = $_FILES['customfile']['name'];
+    $custom_file_tmp_name = $_FILES['customfile']['tmp_name'];
+    $custom_file_size = $_FILES['customfile']['size'];
+    $custom_file_error = $_FILES['customfile']['error'];
+    $custom_file_type = $_FILES['customfile']['type'];
+
+    if (is_uploaded_file($custom_file_tmp_name)){
+      $fileExt = explode('.',$custom_file_name);
+      $fileActualExt = strtolower(end($fileExt));
+      $allowed = array('audio/mpeg', 'audio/x-mp3', 'audio/wav', 'audio/x-wav');
+      if ($custom_file_error == 0){
+        if (in_array($custom_file_type, $allowed)) {
+          if ($custom_file_size<13000000){
+            $fileNewName = uniqid('',true).".".$fileActualExt;
+            $fileDestination = 'uploads/'.$fileNewName;
+            move_uploaded_file($custom_file_tmp_name,$fileDestination);
+            $custom_file = $fileDestination;
+          }
+          else {
+            $custom_error .= "Your file is too big!<br/>";
+          }
+        }
+        else {
+          $custom_error .= "This file is not allowed!<br/>";
+        }
+      }
+      else {
+          $custom_error .= "There was an error uploading your file!<br/>";
+      }
+    }
+
     if (!isset($_POST["tempo"])){
       $tempo_error .= "Please select standard BPM or custom. <br/>";
     }
     else {
       $tempo = test_input($_POST["tempo"]);
-      if ($tempo == "standard" && empty($_POST["bpm"])){
-        $bpm_error .= "Please indicate the beats per minute for your tempo. <br/>";
-      }
-      else if ($tempo == "standard"){
-        $bpm = test_input($_POST['bpm']);
-
-        if ($bpm<40 || $bpm>200){
-          $bpm_error .=  "BPM must be greater than or equal to 40 and less than or equal to 200";
+      if ($tempo == "standard"){
+        if (empty($_POST["bpm"])){
+          $bpm_error .= "Please indicate the beats per minute for your tempo. <br/>";
+        }
+        else {
+          $bpm = test_input($_POST['bpm']);
+          if ($bpm<40 || $bpm>200){
+            $bpm_error .=  "BPM must be greater than or equal to 40 and less than or equal to 200";
+          }
         }
       }
-      if ($tempo == "custom" && empty($_POST["custom_bpm"])){
-        $custom_error .= "Please provide a description of your custom tempo or let us know that you will be sending an email. <br/>";
-      }
-      else if ($tempo == "custom"){
-        $bpm = 0;
-        $custom_bpm = test_input($_POST['custom_bpm']);
-        $custom_bpm = $conn->real_escape_string($custom_bpm);
+      else if ($tempo == "custom" && $custom_file_error == 4){
+        if(empty($_POST["custom_bpm"])){
+          $custom_error .= "Please provide a description of your custom tempo OR upload a recording of a solo performance to align accompaniment with. <br/>";
+        }
+        else{
+          $bpm = 0;
+          $custom_bpm = test_input($_POST['custom_bpm']);
+          $custom_bpm = $conn->real_escape_string($custom_bpm);
+        }
       }
     }
 
@@ -157,7 +191,7 @@ session_start();
       $questions = $conn->real_escape_string($questions);
     }
 
-    $error_array = array($f_name_error , $l_name_error , $email_error , $p_name_error , $imslp_error , $file_error , $tune_note_error , $tempo_error , $bpm_error , $custom_error , $note_type_error , $recording_error);
+    $error_array = array($f_name_error , $l_name_error , $email_error , $p_name_error , $imslp_error , $musicfile_error , $tune_note_error , $tempo_error , $bpm_error , $custom_error , $note_type_error , $recording_error);
 
     if (has_no_error_messages($error_array)) {
 
@@ -212,13 +246,10 @@ function test_input($data) {
   <h1>ORDER FORM<h1>
   <h3>We'll create what you need</h3>
 
-  <p> Fill out the information below.
-    After you submit this form, you'll wait for the accompanist to decide the price for your custom depending on difficulty and how soon you'll receive it.
-    After you pay, the accompanist will record it and email it to you with the option of a private YouTube link or a downloadable video file.
-    Please give us any feedback after you receive your track.
-  </p>
+
 
   <form class="" method="POST" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
+    <p> Fill out the information below. </p>
     <fieldset>
       <legend>Personal Information:</legend>
       <div class="">
@@ -244,7 +275,7 @@ function test_input($data) {
         <input type="url" id="imslp" name="imslp" class="input-1-2" placeholder="https://imslp.org/" onfocus="onFocus();" value="<?php echo stripslashes($imslp);?>">
       </div>
       <div class="">
-        <label for="musicfile">Select a file:<span class="form-error"><?php echo $file_error;?> </span></label>
+        <label for="musicfile">Select a file:<span class="form-error"><?php echo $musicfile_error;?> </span></label>
         <input type="file" id="musicfile" name="musicfile" class="input-1-2">
       </div>
     </fieldset>
@@ -261,27 +292,36 @@ function test_input($data) {
       <label for="standard"  class=""><input type="radio" id="standard" name="tempo" onclick="TempoDisplay()" value="standard" <?php if (isset($tempo) && $tempo == "standard") echo "checked"; ?>>Standard</label>
       <div id = "tempo_div1" class="tempo_div"></div>
       <?php
-      //
       if (isset($tempo) && $tempo == "standard"){
-        echo '<div class="tempo_div">';
-        echo '<label>Choose a type of note:<span class="form-error">'.$note_type_error.'</span></label>';
-        echo '<label for="half_note"><input type="radio" id="half_note" name="note_type" value="half_note"';       if (isset($note_type) && $note_type == "half_note") echo 'checked'; echo ' >&#119134;</label>
-          <label for="quarter_note"><input type="radio" id="quarter_note" name="note_type" value="quarter_note"';  if (isset($note_type) && $note_type == "quarter_note") echo 'checked'; echo ' >&#119135;</label>
-          <label for="eighth_note"><input type="radio" id="eighth_note" name="note_type" value="eighth_note"';     if (isset($note_type) && $note_type == "eighth_note") echo 'checked'; echo ' >&#119136;</label>';
-        echo '<label for="bpm">Beats per Minute: <span class="form-error">'. $bpm_error .'</span></label>';
-        echo '<input id="bpm" type="number" name="bpm" class="beats" min="40" max="200" value='. $bpm .' required>';
-        echo '</div>';
+        ?>
+        <div class="tempo_div">
+        <label>Choose a type of note:<span class="form-error"><?php echo $note_type_error; ?></span></label>
+        <label for="half_note"><input type="radio" id="half_note" name="note_type" value="half_note"          <?php if (isset($note_type) && $note_type == "half_note") echo 'checked'; ?> >&#119134;</label>
+        <label for="quarter_note"><input type="radio" id="quarter_note" name="note_type" value="quarter_note" <?php if (isset($note_type) && $note_type == "quarter_note") echo 'checked'; ?> >&#119135;</label>
+        <label for="eighth_note"><input type="radio" id="eighth_note" name="note_type" value="eighth_note"    <?php if (isset($note_type) && $note_type == "eighth_note") echo 'checked'; ?>  >&#119136;</label>
+        <label for="bpm">Beats per Minute: <span class="form-error">'<?php echo $bpm_error; ?>'</span></label>
+        <input id="bpm" type="number" name="bpm" class="beats" min="40" max="200" value='<?php echo $bpm; ?>' required>
+        </div>
+        <?php
       }
       ?>
-      <label for="custom"  class=""><input type="radio" id="custom" name="tempo" onclick="TempoDisplay()" value="custom" <?php if (isset($tempo) && $tempo == "custom") echo "checked"; ?>>Custom</label>
+      <label for="custom"  class="">
+        <input type="radio" id="custom" name="tempo" onclick="TempoDisplay()" value="custom" <?php if (isset($tempo) && $tempo == "custom") echo "checked"; ?>>Custom
+        <span id="custom_span"></span>
+        <div class="form-error"> <?php echo $custom_error ?> </div>
+      </label>
       <div id = "tempo_div2" class="tempo_div"></div>
       <?php
       if (isset($tempo) && $tempo == "custom"){
-        echo '<div class="tempo_div">
-        <label for="custom_bpm">Describe your desired tempo:<span class="form-error">'. $custom_error .'</span></label>
-        <textarea id="custom_bpm" name="custom_bpm" class="input-1-2">' . stripslashes($custom_bpm) . '</textarea>
-        <p>You can also send your recording of a solo performance to align accompaniment with to contact@pianopartner.com</p>
-        </div>';
+        $stripped_custom = stripslashes($custom_bpm);
+        ?>
+        <div class="tempo_div">
+        <label for="custom_bpm">Describe your desired tempo:</label>
+        <textarea id="custom_bpm" name="custom_bpm" class="input-1-2">' <?php echo $stripped_custom; ?> '</textarea>
+        <label for="customfile">Select a recording of solo performance:<span class="form-error"> <?php echo  $customfile_error; ?> </span></label>
+        <input type="file" id="customfile" name="customfile" class="input-1-2">
+        </div>
+        <?php
       }
       ?>
     </fieldset>

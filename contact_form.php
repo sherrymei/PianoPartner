@@ -48,19 +48,20 @@ if (!empty($name) and !empty($mail_from)){
 
     $body = '<p>From: '.$name.'</p><p>'.$message.'</p>';
 
-    $mail->SMTPDebug = 0;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
+    $mail->SMTPDebug = 0;
+    $mail->isSMTP();
     $mail->Mailer     = "smtp";
-    $mail->Host       = 'smtp.gmail.com';                     // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'backlightrecordings@gmail.com';                // SMTP username
-    $mail->Password   = 'bluemic_7';                             // SMTP password
-    $mail->SMTPSecure = 'TLS';        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    //TODO change username and password before pushing to GitHub
+    $mail->Username   = 'username@gmail.com';
+    $mail->Password   = 'password';
+    $mail->SMTPSecure = 'TLS';
+    $mail->Port       = 587;
 
     $mail->setFrom($mail_from);
     $mail->addReplyTo($mail_from, $name);
-    $mail->addAddress('backlightrecordings@gmail.com', 'Backlight Recordings');                 // Add a recipient
+    $mail->addAddress('backlightrecordings@gmail.com', 'Backlight Recordings');
 
     $mail->Subject = $subject;
     $mail->Body    = $body;

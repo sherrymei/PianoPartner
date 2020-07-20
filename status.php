@@ -55,27 +55,37 @@ session_start();
 
     switch ($status_msg) {
       case "Status1":
-        echo "<p>Your order number is ". $order_num .". Keep it in a safe place!</p>
-              <p>We sent your order number to your email address.  </p>
-              <p>Accompanist is deciding the difficulty for your piece</p>";
+        ?>
+        <p>Your order number is " <?php echo $order_num; ?>". Keep it in a safe place!</p>
+        <p>We sent your order number to your email address.  </p>
+        <p>Accompanist is deciding the difficulty for your piece</p>
+        <?php
         break;
       case "Status2":
-        echo "<p>Please proceed to checkout</p>";
-        echo "<div id=\"paypal-button-container\"></div>";
+        ?>
+        <p>Please proceed to checkout</p>
+        <div id="paypal-button-container"></div>
+        <?php
         break;
       case "Status3":
-        echo "<p>Accompanist is recording your piece</p>";
+        ?>
+        <p>Accompanist is recording your piece</p>
+        <?php
         break;
       case "Status4":
-        echo "<p>Your order is ready. Please check your inbox.</p>
-              <p>You can provide any feedback here anonymously or by replying to your email. </p>";
-        echo "<form method=\"POST\" action=\"" ; echo htmlspecialchars($_SERVER["PHP_SELF"]); echo "\">
-                 <textarea class=\"input-1-2\" name=\"feedback\"></textarea><br>
-                 <button type=\"submit\" class=\"pure-button\">SEND</button>
-              </form>";
+        ?>
+        <p>Your order is ready. Please check your inbox.</p>
+        <p>You can provide any feedback here anonymously or by replying to your email. </p>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+          <textarea class="input-1-2" name="feedback"></textarea><br>
+          <button type="submit" class="pure-button">SEND</button>
+        </form>
+        <?php
         break;
       default:
-        echo "Please complete the order form";
+        ?>
+         <p>Please complete the order form.</p>
+        <?php
     }
     $stmt1->close();
   }
