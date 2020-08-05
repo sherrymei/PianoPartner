@@ -8,7 +8,7 @@ session_start();
 
 
 <body>
-  <script src="https://www.paypal.com/sdk/js?client-id=AY9te3wD5b7VZxZgkqt8eZH-cXSInfVfvhe4rgCzC_RnudPNDaSajsDU1avOC8I_LPVzfvIzjHYWYkmX" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+  <script src="https://www.paypal.com/sdk/js?client-id=Ae6FFl1wGLjuA_RhPJcBSSePz4J0PxKBRgna47JB6nmuZOzsLMh5M-Uct611uGkXwm5fs5fkf5VJzOo-" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
  </script>
 
 
@@ -31,6 +31,7 @@ session_start();
       }
     }
   }
+
 
    ?>
 <div id="status_fullpage">
@@ -63,6 +64,8 @@ session_start();
         break;
       case "Status2":
         ?>
+        <p>Your accompanist decided this piece is diffculty _ for _ pages. You chose to receive a(n) _</p>
+        <p>Balance Due: _ </p>
         <p>Please proceed to checkout</p>
         <div id="paypal-button-container"></div>
         <?php

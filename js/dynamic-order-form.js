@@ -117,3 +117,85 @@ function onFocus() {
   var imslp = document.getElementById("imslp");
   imslp.value = imslp.value=="" ? imslp.placeholder : imslp.value;
 }
+
+
+
+
+var modal = document.querySelector("#modal");
+var modalOverlay = document.querySelector("#modal-overlay");
+var closeButton = document.querySelector("#close-button");
+var personalInfo = document.querySelector("#personal-info");
+var tempoInfo = document.querySelector("#tempo-info");
+var recordingInfo = document.querySelector("#recording-info");
+var modalText = document.getElementById("modal-text");
+var infoHeading;
+
+
+
+
+closeButton.addEventListener("click", function() {
+  modal.classList.toggle("closed");
+  modalOverlay.classList.toggle("closed");
+});
+
+personalInfo.addEventListener("click", function() {
+  modalText.innerHTML = "";
+  infoHeading = document.createElement("h4");
+  personal_info_heading = document.createTextNode("Personal Information");
+  personal_info_text = document.createTextNode("If you want a private Youtube link, your email address must be connected to a Google account.");
+  infoHeading.appendChild(personal_info_heading);
+  modalText.appendChild(infoHeading);
+  modalText.appendChild(personal_info_text);
+  modal.classList.toggle("closed");
+  modalOverlay.classList.toggle("closed");
+
+});
+
+/*
+Fermatas will be held for twice the duration of the note
+Ritardando and accelerando will be up to the proxy of the accompanist to the defined speed you indicate for that section
+For cadenzas, you should pause the recording and fast forward to the time provided to match the a tempo marking before your next entrance
+*/
+
+tempoInfo.addEventListener("click", function() {
+
+  modalText.innerHTML = "";
+  infoHeading = document.createElement("h4");
+  tempo_info_heading = document.createTextNode("Tempo Notes");
+  tempo_info_text = document.createTextNode("Unless you send a custom recording of your playing---");
+  tempo_ol = document.createElement("ol");
+  tempo_li1 = document.createElement("li");
+  tempo_li2 = document.createElement("li");
+  tempo_li3 = document.createElement("li");
+
+  li1_text = document.createTextNode("Fermatas will be held for twice the duration of the note");
+  li2_text = document.createTextNode("Ritardando and accelerando will be up to the proxy of the accompanist to the defined speed you indicate for that section");
+  li3_text = document.createTextNode("For cadenzas, you should pause the recording and fast forward to the time provided to match the a tempo marking before your next entrance");
+
+  tempo_li1.appendChild(li1_text);
+  tempo_li2.appendChild(li2_text);
+  tempo_li3.appendChild(li3_text);
+
+  tempo_ol.appendChild(tempo_li1);
+  tempo_ol.appendChild(tempo_li2);
+  tempo_ol.appendChild(tempo_li3);
+
+  infoHeading.appendChild(tempo_info_heading);
+  modalText.appendChild(infoHeading);
+  modalText.appendChild(tempo_info_text);
+  modalText.appendChild(tempo_ol);
+  modal.classList.toggle("closed");
+  modalOverlay.classList.toggle("closed");
+});
+
+recordingInfo.addEventListener("click", function() {
+  modalText.innerHTML = "";
+  infoHeading = document.createElement("h4");
+  recording_info_heading = document.createTextNode("Comparing Audio File, Video File, and Youtube Link");
+  recording_info_text = document.createTextNode("Advantages of Audio file/Disadvantages of Audio file");
+  infoHeading.appendChild(recording_info_heading);
+  modalText.appendChild(infoHeading);
+  modalText.appendChild(recording_info_text);
+  modal.classList.toggle("closed");
+  modalOverlay.classList.toggle("closed");
+});

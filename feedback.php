@@ -10,6 +10,7 @@ session_start();
 
   <h1>Feedback from our Customers</h1>
   <?php
+    if ($_SESSION['active']){
     $sql = "SELECT feedback_msg FROM feedback;";
     if ($stmt = $conn->prepare($sql)) {
       $stmt->execute();
@@ -21,6 +22,10 @@ session_start();
     }
 
 $conn -> close();
+}
+else {
+    header("Location:admin.php");
+}
 
    ?>
 

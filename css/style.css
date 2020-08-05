@@ -46,6 +46,7 @@ input[type="text"],
 input[type="email"],
 input[type="url"],
 input[type="number"],
+input[type="password"],
 textarea,
 select {
   font-family: inherit;
@@ -63,6 +64,7 @@ input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="url"]:focus,
 input[type="number"]:focus,
+input[type="password"]:focus,
 textarea:focus,
 select:focus {
   outline: 0;
@@ -117,13 +119,6 @@ button:focus
    outline: 0;
 }
 
-ol,ul {
-    list-style: none;
-    margin:0;
-    padding:0;
-}
-
-
 table, th, td {
   border: 1px solid black;
 }
@@ -147,6 +142,10 @@ th {
   text-align: left;
 }
 
+div.form{
+  margin: 0 auto;
+  width: 50%;
+}
 
 .status {
   text-align: center;
@@ -181,6 +180,140 @@ th {
   font-weight: bolder;
 }
 
+.info_icon {
+  width: 18px;
+  height: 18px;
+}
+
+.info{
+
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  margin-left: 5%;
+
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: white;;
+  color: black;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 12px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  left: 105%;
+}
+
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip:hover {
+  cursor:pointer;
+}
+
+
+.modal {
+  display: block;
+  width: 600px;
+  max-width: 100%;
+  height: 400px;
+  max-height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 40%;
+  top: 40%;
+  margin: -200px 0 0 -200px;
+  background: white;
+}
+
+.modal-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+
+.closed {
+  display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal .close-button {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  padding: 5px;
+
+}
+
+.open-button {
+  border: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: lightgreen;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 21px;
+}
+
+
+
+.order-details{
+  column-count: 2;
+}
+
+.row {
+  display: block;
+  padding-top: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  break-inside: avoid-column;
+}
+
+
+.item{
+  font-weight: bold;
+  display: inline-block;
+  width: 50%;
+}
+
+.span-select{
+  position: absolute;
+}
+
+.row #status-span {
+  padding-top: 16px;
+  padding-bottom: 14px;
+}
 
 #rates_table {
   margin-left:10%;
@@ -231,8 +364,6 @@ th {
 	margin:0;
 }
 
-
-
 #icon_logo {
   height: 50px;
   width: 100px;
@@ -280,11 +411,12 @@ th {
 } */
 
 
-#home_section h1{
+#main_h1{
   font-family: 'Dancing Script';
   font-size: 140px;
-  text-shadow: 20px 0px 50px #D2BF55;
-
+  text-shadow: 00px 15px 5px rgba(0,0,0,0.1),
+               10px 20px 5px rgba(0,0,0,0.05),
+              -10px 20px 5px rgba(0,0,0,0.05);
 }
 
 
@@ -310,8 +442,13 @@ th {
   font-size: 20px;
 }
 
+#password {
+  width: 100%;
+}
 
-
+#submit_button {
+  visibility:hidden;
+}
 
 
 
@@ -340,6 +477,10 @@ th {
 
   #contact_section form textarea{
     width: 100%;
+  }
+
+  .order-details{
+    column-count: 1;
   }
 
 }
