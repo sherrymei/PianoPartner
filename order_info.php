@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <?php
 
 include 'includes/connect_mysql.php';
@@ -39,35 +41,37 @@ session_start();
         <div>
           <div class="row">
             <span class="item" id="status-span"> Status </span>
-              <span class="span-select">
+            <span class="span-select">
               <select name="status" class="status" id="status<?php echo $user_id;?>" onchange="updateUserStatus(<?php echo $user_id;?>)">
                 <option value="Status1" <?php if ($status_row=='Status1') echo "selected"; ?>>Status 1</option>
                 <option value="Status2" <?php if ($status_row=='Status2') echo "selected"; ?>>Status 2</option>
                 <option value="Status3" <?php if ($status_row=='Status3') echo "selected"; ?>>Status 3</option>
                 <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
               </select>
-            <span>
-          </div>
-          <?php
+              <span>
+              </div>
+              <?php
+            }
+            $result->free();
+          }
+          $conn->close();
+
         }
-        $result->free();
-      }
-      $conn->close();
+        else {
+          header("Location: admin.php");
+          exit;
+        }
 
-    }
-    else {
-      header("Location:admin.php");
-    }
-
-    ?>
+        ?>
 
 
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
-  <script src=js/admin.js></script>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script src="fullpage.js/vendors/scrolloverflow.js"></script>
+      <script src="fullpage.js/dist/fullpage.js"></script>
+      <script src=js/admin.js></script>
 
-</body>
+    </body>
 
-</html>
+    </html>
+    <?php ob_flush(); ?>

@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <?php
 
 include 'includes/connect_mysql.php';
@@ -21,11 +22,11 @@ session_start();
       $stmt->close();
     }
 
-$conn -> close();
-}
-else {
-    header("Location:admin.php");
-}
+    $conn -> close();
+    }
+    else {
+        header("Location: admin.php");
+    }
 
    ?>
 
@@ -37,3 +38,4 @@ else {
 </body>
 
 </html>
+<?php ob_flush(); ?>

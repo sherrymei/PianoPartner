@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <?php
 
 include 'includes/connect_mysql.php';
@@ -49,33 +51,35 @@ session_start();
                   <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
                 </select>
               </td>
-              <td id="order<?php echo $user_id;?>"><a href="order_info.php?userid=<?php echo $user_id;?>"> <?php echo $row["order_num"]; ?> </a></td>
+              <td><a id="order<?php echo $user_id;?>" href="order_info.php?userid=<?php echo $user_id;?>"> <?php echo $row["order_num"]; ?> </a></td>
               <td><?php echo $row["full_name"]; ?></td>
               <td><?php echo $row["mail_from"]; ?></td>
               <td><?php echo $row["piece_name"]; ?></td>
-              </tr>
-              <?php
-            }
+            </tr>
+            <?php
           }
-          ?>
-        </tbody>
-      </table>
+        }
+        ?>
+      </tbody>
+    </table>
 
-      <?php
+    <?php
 
-      $conn->close();
-    }
-    else {
-      header("Location:admin.php");
-    }
+    $conn->close();
+  }
+  else {
+    header("Location: admin.php");
+    exit;
+  }
 
-    ?>
+  ?>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-    <script src="fullpage.js/dist/fullpage.js"></script>
-    <script src=js/admin.js></script>
-  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
+  <script src="fullpage.js/dist/fullpage.js"></script>
+  <script src=js/admin.js></script>
+</body>
 
-  </html>
+</html>
+<?php ob_flush(); ?>

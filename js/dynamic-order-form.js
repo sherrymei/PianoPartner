@@ -42,17 +42,17 @@ function TempoDisplay(){
     half_note_radio.setAttribute("type","radio");
     half_note_radio.setAttribute("id","half_note");
     half_note_radio.setAttribute("name","note_type");
-    half_note_radio.setAttribute("value","half_note");
+    half_note_radio.setAttribute("value","Half Note");
 
     quarter_note_radio.setAttribute("type","radio");
     quarter_note_radio.setAttribute("id","quarter_note");
     quarter_note_radio.setAttribute("name","note_type");
-    quarter_note_radio.setAttribute("value","quarter_note");
+    quarter_note_radio.setAttribute("value","Quarter Note");
 
     eighth_note_radio.setAttribute("type","radio");
     eighth_note_radio.setAttribute("id","eighth_note");
     eighth_note_radio.setAttribute("name","note_type");
-    eighth_note_radio.setAttribute("value","eighth_note");
+    eighth_note_radio.setAttribute("value","Eighth Note");
 
     bpm_label.appendChild(bpm_text);
     note_label.appendChild(note_text);
@@ -115,10 +115,12 @@ function TempoDisplay(){
 
 function onFocus() {
   var imslp = document.getElementById("imslp");
-  imslp.value = imslp.value=="" ? imslp.placeholder : imslp.value;
+  imslp.value = imslp.value=="" ? "" : imslp.value;
 }
 
-
+function submitOrder(){
+  
+}
 
 
 var modal = document.querySelector("#modal");

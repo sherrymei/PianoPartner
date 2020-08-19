@@ -1,19 +1,8 @@
+<?php ob_start(); ?>
 <?php
 
 include 'includes/html_head.php';
 session_start();
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
-
-?>
-
-<body>
-
-  <?php
 
   $order_num = $error_msg = "";
 
@@ -34,6 +23,7 @@ require 'vendor/autoload.php';
       else {
         $_SESSION["order"] = $order_num;
         header("Location: status.php?order=". $order_num);
+        exit;
       }
     }
   }
@@ -47,15 +37,7 @@ require 'vendor/autoload.php';
 
   ?>
 
-  <ul id="menu">
-
-    <li><a href="#main"><img src ="images/pianopartner.png" id="icon_logo"></a></li>
-    <li data-menuanchor="objective"><a href="#objective">Objective</a></li>
-    <li data-menuanchor="order"><a href="#order">Order</a></li>
-    <li data-menuanchor="about"><a href="#about">About</a></li>
-    <li data-menuanchor="contact"><a href="#contact">Contact</a></li>
-  </ul>
-
+  <body>
 
   <div id="fullpage">
     <div id="header">
@@ -70,7 +52,7 @@ require 'vendor/autoload.php';
       <h1 id="main_h1"> Backlight Recordings</h1>
       <p>Professional acoustic grand piano recordings for practice and performance</p>
     </div>
-    <div class="section" id="objective_section">
+    <div id="objective_section">
       <h1>Objective</h1>
       <p>We all want to feel like we’re the soloist standing in the spotlight, but it’s difficult to feel that way when you’re practicing or performing by yourself. Whether you’re practicing at home by yourself or recording for an audition, we can help provide you with a studio piano accompaniment track recorded by our professional piano accompanist. Whether you’re playing a concerto or a sonata, our accompanist will be able to provide you a recording of the accompaniment at a tempo you’re comfortable with.
       </p>
@@ -81,7 +63,7 @@ require 'vendor/autoload.php';
       <p>Our goal here at Backlight Recordings is to help shine that light on your performance from behind to support you in your musical expressions.
       </p>
     </div>
-    <div class="section" id="order_section">
+    <div  id="order_section">
       <h1> How to Order Your Own </h1>
       <p> Fill out the order form. You will receive an order number for the status of your order. You can check back on your status using your order number. When we receive your form, please wait up to 48 hours for our accompanist to review your order and respond to any questions you may have and provide a final price. Then please proceed to pay through Paypal. Once we receive your payment, please wait up to a week for audio recordings and up to 2 weeks for video recordings. After, the accompanist will upload the file or link for you only. You can only access the YouTube video with your Google account. If you choose an audio file or video file, you can download it and play it offline wherever you go. </p>
 
@@ -104,17 +86,17 @@ require 'vendor/autoload.php';
         </tfoot>
         <tbody>
           <tr><!-- First row -->
-            <td class="td_lvl">Level 1</td>
+            <td class="td_lvl">Beginner</td>
             <td>$2.00/page</td>
             <td>$3.00/page</td>
           </tr>
           <tr><!-- Second row -->
-            <td class="td_lvl">Level 2</td>
+            <td class="td_lvl">Amateur</td>
             <td>$4.00/page</td>
             <td>$6.00/page</td>
           </tr>
           <tr><!-- Third row -->
-            <td class="td_lvl">Level 3</td>
+            <td class="td_lvl">Virtuoso</td>
             <td>$6.00/page</td>
             <td>$9.00/page</td>
           </tr>
@@ -122,13 +104,13 @@ require 'vendor/autoload.php';
       </table>
       <div id="orderd"><a href='order_form.php' class="button" >Order</a></div>
     </div>
-    <div class="section" id="about_section">
+    <div  id="about_section">
       <h1> About </h1>
       <p>
         All our studio recordings are recorded from our grand piano played by our professional piano accompanist who has been accompanying all different instrumentalists during their recitals, conservatory auditions, and concerto competitions for almost a decade. She has worked with very young students starting from the suzuki program to professional instrumentalists.
       </p>
     </div>
-    <div class="section" id="contact_section">
+    <div  id="contact_section">
       <h1>Contact Us</h1>
       <form id="contact_form">
         <fieldset>
@@ -149,3 +131,4 @@ require 'vendor/autoload.php';
 </body>
 
 </html>
+<?php ob_flush(); ?>

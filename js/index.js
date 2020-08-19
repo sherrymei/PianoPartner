@@ -1,10 +1,9 @@
 var myFullpage = new fullpage('#fullpage', {
-  navigation: true,
-  anchors: ['main', 'objective', 'order', 'about', 'contact'],
   css3:true,
-  scrollOverflow: true,
-  continuousVertical: true,
-  menu: '#menu'
+  menu: '#menu',
+
+  autoScrolling: false,
+	fitToSection: false
 });
 
 

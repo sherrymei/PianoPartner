@@ -54,8 +54,8 @@ if (!empty($name) and !empty($mail_from)){
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     //TODO change username and password before pushing to GitHub
-    $mail->Username   = 'username@gmail.com';
-    $mail->Password   = 'password';
+    $mail->Username   = 'user@gmail.com';
+    $mail->Password   = '****';
     $mail->SMTPSecure = 'TLS';
     $mail->Port       = 587;
 

@@ -26,3 +26,9 @@ paypal.Buttons({
       });
     }
   }).render('#paypal-button-container');
+
+
+
+(function() {
+    console.log("here");
+  })();
