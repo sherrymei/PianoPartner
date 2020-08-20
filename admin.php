@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->fetch();
       if ($password==$pass){
         $_SESSION["active"] = true;
-        header("Location: orders_table.php");
+        header("Location: orders_table");
         exit;
       }
       $stmt->close();

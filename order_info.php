@@ -40,6 +40,7 @@ session_start();
         </div>
         <div>
           <div class="row">
+			
             <span class="item" id="status-span"> Status </span>
             <span class="span-select">
               <select name="status" class="status" id="status<?php echo $user_id;?>" onchange="updateUserStatus(<?php echo $user_id;?>)">
@@ -48,9 +49,12 @@ session_start();
                 <option value="Status3" <?php if ($status_row=='Status3') echo "selected"; ?>>Status 3</option>
                 <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
               </select>
-              <span>
-              </div>
-              <?php
+            <span>
+          </div>
+		  <div class="row"> 
+			<span class="item">	</span>
+		  </div>
+          <?php
             }
             $result->free();
           }
@@ -58,7 +62,7 @@ session_start();
 
         }
         else {
-          header("Location: admin.php");
+          header("Location: admin");
           exit;
         }
 

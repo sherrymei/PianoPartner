@@ -35,10 +35,10 @@ if ($stmt = $conn->prepare("SELECT order_num, full_name, mail_from, piece_name, 
   $mail->SMTPDebug = 0  ;
   $mail->isSMTP();
   $mail->Mailer     = "smtp";
-  $mail->Host       = 'domain.com';
+  $mail->Host       = 'mail.backlightrecordings.com';
   // $mail->SMTPAuth   = true;
-  $mail->Username   = 'user@domain.com';
-  $mail->Password   = '****';
+  $mail->Username   = 'orders@backlightrecordings.com';
+  $mail->Password   = 'Satisfaction485';
   $mail->SMTPSecure = 'SSL';
   $mail->Port       = 465;
 
@@ -56,7 +56,7 @@ if ($stmt = $conn->prepare("SELECT order_num, full_name, mail_from, piece_name, 
     exit;
   }
   else {
-    header("Location: status.php?order=". $order_num);
+    header("Location: status/order/" . $order_num);
   }
   $stmt->close();
 }

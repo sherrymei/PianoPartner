@@ -68,7 +68,7 @@ session_start();
     $conn->close();
   }
   else {
-    header("Location: admin.php");
+    header("Location: admin");
     exit;
   }
 
