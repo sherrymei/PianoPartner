@@ -119,7 +119,7 @@ function onFocus() {
 }
 
 function submitOrder(){
-  
+
 }
 
 
@@ -194,7 +194,8 @@ recordingInfo.addEventListener("click", function() {
   modalText.innerHTML = "";
   infoHeading = document.createElement("h4");
   recording_info_heading = document.createTextNode("Comparing Audio File, Video File, and Youtube Link");
-  recording_info_text = document.createTextNode("Advantages of Audio file/Disadvantages of Audio file");
+  recording_info_text = document.createTextNode("If you choose Youtube, easily go to chapters with an internet connection. If you choose audio or video file, we will give you timestamps for you to skip manualy without an internet connection.");
+
   infoHeading.appendChild(recording_info_heading);
   modalText.appendChild(infoHeading);
   modalText.appendChild(recording_info_text);

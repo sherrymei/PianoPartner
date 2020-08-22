@@ -17,10 +17,11 @@ session_start();
 
     ?>
 
-    <p>Status 1 - Your order number is __. Accompanist is deciding the difficulty for your piece</p>
-    <p>Status 2 - Please proceed to checkout</p>
-    <p>Status 3 - Accompanist is recording your piece</p>
-    <p>Status 4 - Your order is ready. Please check your inbox. You can provide any feedback here or by replying to your email</p>
+    <p>Status 1 - Order Number</p>
+    <p>Status 2 - Checkout</p>
+    <p>Status 3 - Wait for an email notification</p>
+    <p>Status 4 - Accompanist is recording</p>
+    <p>Status 5 - Order is ready</p>
 
     <table>
       <thead>
@@ -35,12 +36,12 @@ session_start();
       <tbody>
         <?php
 
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM Users";
 
         if ($stmt = $conn->query($sql)) {
           while ($row = $stmt->fetch_assoc()) {
-            $status_row = $row["status_msg"];
-            $user_id = $row["user_id"];
+            $status_row = $row["StatusMsg"];
+            $user_id = $row["UserID"];
             ?>
             <tr>
               <td>
@@ -49,12 +50,13 @@ session_start();
                   <option value="Status2" <?php if ($status_row=='Status2') echo "selected"; ?>>Status 2</option>
                   <option value="Status3" <?php if ($status_row=='Status3') echo "selected"; ?>>Status 3</option>
                   <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
+                  <option value="Status5" <?php if ($status_row=='Status5') echo "selected"; ?>>Status 5</option>
                 </select>
               </td>
-              <td><a id="order<?php echo $user_id;?>" href="order_info.php?userid=<?php echo $user_id;?>"> <?php echo $row["order_num"]; ?> </a></td>
-              <td><?php echo $row["full_name"]; ?></td>
-              <td><?php echo $row["mail_from"]; ?></td>
-              <td><?php echo $row["piece_name"]; ?></td>
+              <td><a id="order<?php echo $user_id;?>" href="order_info?userid=<?php echo $user_id;?>"> <?php echo $row["OrderNumber"]; ?> </a></td>
+              <td><?php echo $row["FullName"]; ?></td>
+              <td><?php echo $row["Email"]; ?></td>
+              <td><?php echo $row["PieceName"]; ?></td>
             </tr>
             <?php
           }

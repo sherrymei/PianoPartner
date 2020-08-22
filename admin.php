@@ -16,7 +16,7 @@ function test_input($data) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['password'])){
     $password = test_input($_POST["password"]);
-    if ($stmt = $conn->prepare("SELECT pass FROM boss")){
+    if ($stmt = $conn->prepare("SELECT Pass FROM Boss")){
       $stmt->execute();
       $stmt->bind_result($pass);
       $stmt->fetch();

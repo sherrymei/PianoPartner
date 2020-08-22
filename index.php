@@ -22,7 +22,7 @@ session_start();
       }
       else {
         $_SESSION["order"] = $order_num;
-        header("Location: status.php?order=". $order_num);
+        header("Location: status?order=". $order_num);
         exit;
       }
     }
@@ -50,7 +50,7 @@ session_start();
     </div>
     <div class="section" id="home_section">
       <h1 id="main_h1"> Backlight Recordings</h1>
-      <p>Professional acoustic grand piano recordings for practice and performance</p>
+      <p id="slogan">Professional acoustic grand piano recordings for practice and performance</p>
     </div>
     <div id="objective_section">
       <h1>Objective</h1>
@@ -102,7 +102,7 @@ session_start();
           </tr>
         </tbody>
       </table>
-      <div id="orderd"><a href='order_form.php' class="button" >Order</a></div>
+      <div id="orderd"><a href='order_form' class="button" >Order</a></div>
     </div>
     <div  id="about_section">
       <h1> About </h1>

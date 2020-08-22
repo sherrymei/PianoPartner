@@ -1,17 +1,9 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
-
-$mail = new PHPMailer(true);
-
 $data = json_decode($_POST["data"], false);
 
 $name = test_input($data -> name) ;
-$mail_from = test_input($data -> mail);
+$email = test_input($data -> mail);
 $subject = test_input($data -> subject);
 $message = test_input($data -> message);
 
@@ -23,12 +15,12 @@ if (empty($name) ) {
   $error["name"] = "Fill name field. ";
   $response .= "Fill name field. ";
 }
-if (empty($mail_from)) {
+if (empty($email)) {
   $error["email"] = "Fill email field. ";
   $response .= "Fill email field. ";
 }
 
-if (!empty($name) and !empty($mail_from)){
+if (!empty($name) and !empty($email)){
   if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
     $error["name"] = "Invalid name - only letters and white space allowed.";
     $response .= "Invalid name - only letters and white space allowed.";
@@ -36,7 +28,7 @@ if (!empty($name) and !empty($mail_from)){
   else {
     $response .= "";
   }
-  if (!filter_var($mail_from, FILTER_VALIDATE_EMAIL)) {
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error["email"] = "Invalid email format";
     $response .= "Invalid email format";
   }
@@ -47,33 +39,17 @@ if (!empty($name) and !empty($mail_from)){
   if (empty($response)){
 
     $body = '<p>From: '.$name.'</p><p>'.$message.'</p>';
-
-    $mail->SMTPDebug = 0;
-    $mail->isSMTP();
-    $mail->Mailer     = "smtp";
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    //TODO change username and password before pushing to GitHub
-    $mail->Username   = 'user@gmail.com';
-    $mail->Password   = '****';
-    $mail->SMTPSecure = 'TLS';
-    $mail->Port       = 587;
-
-    $mail->setFrom($mail_from);
-    $mail->addReplyTo($mail_from, $name);
-    $mail->addAddress('backlightrecordings@gmail.com', 'Backlight Recordings');
-
-    $mail->Subject = $subject;
-    $mail->Body    = $body;
-    $mail->AltBody = strip_tags($body);
-
-    if($mail->send()){
-      $status = "success";
-      $response = "Email is sent!";
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= "From: ". $email ."\r\n";
+    $success = mail("contact@backlightrecordings.com","$subject","$body","$headers");
+    if (!$success) {
+      $status = "failed";
+      $response = error_get_last()['message'];
     }
     else {
-      $status = "failed";
-      $response .= $mail->ErrorInfo;
+      $status = "success";
+      $response = "Email is sent!";
     }
   }
 }

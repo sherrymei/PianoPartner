@@ -310,10 +310,11 @@ div.form{
   position: absolute;
 }
 
-.row #status-span {
+.status-span {
   padding-top: 16px;
-  padding-bottom: 14px;
+  padding-bottom: 20px;
 }
+
 
 #rates_table {
   margin-left:10%;
@@ -453,10 +454,14 @@ div.form{
   visibility:hidden;
 }
 
+#slogan {
+  font-size: 20px;
+}
 
 
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 1000px) {
   /* textarea {
     width: 100%;
   } */

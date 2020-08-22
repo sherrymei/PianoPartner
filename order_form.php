@@ -10,7 +10,7 @@ session_start();
 <body>
   <?php
   $f_name_error = $l_name_error = $email_error = $p_name_error = $imslp_error = $musicfile_error = $tune_note_error = $tempo_error = $bpm_error = $custom_error = $note_type_error = $recording_error = "";
-  $order_num = $full_name = $first_name = $last_name = $mail_from = $piece_name = $imslp = $music_file = $tuning_note = $tempo =  $bpm = $custom_bpm = $custom_file = $note_type = $recording = $questions = "";
+  $order_num = $full_name = $first_name = $last_name = $email = $piece_name = $imslp = $music_file = $tuning_note = $tempo =  $bpm = $custom_bpm = $custom_file = $note_type = $recording = $questions = "";
 
 
   //$city = mysqli_real_escape_string($link, $city);
@@ -42,11 +42,11 @@ session_start();
       $email_error .= "Your email address is required. <br/>";
     }
     else {
-      $mail_from = test_input($_POST['email']);
-      if (!filter_var($mail_from, FILTER_VALIDATE_EMAIL)) {
+      $email = test_input($_POST['email']);
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $email_error .= "Invalid email format. <br/>";
       }
-      $mail_from = $conn->real_escape_string($mail_from);
+      $email = $conn->real_escape_string($email);
     }
 
     if (empty($_POST["piece_name"])){
@@ -120,15 +120,13 @@ session_start();
     }
 
 
+    $custom_file_name = $_FILES['customfile']['name'];
+    $custom_file_tmp_name = $_FILES['customfile']['tmp_name'];
+    $custom_file_size = $_FILES['customfile']['size'];
+    $custom_file_error = $_FILES['customfile']['error'];
+    $custom_file_type = $_FILES['customfile']['type'];
 
-    if (is_uploaded_file($_FILES['customfile']['tmp_name'])){
-
-      $custom_file_name = $_FILES['customfile']['name'];
-      $custom_file_tmp_name = $_FILES['customfile']['tmp_name'];
-      $custom_file_size = $_FILES['customfile']['size'];
-      $custom_file_error = $_FILES['customfile']['error'];
-      $custom_file_type = $_FILES['customfile']['type'];
-
+    if (is_uploaded_file($custom_file_tmp_name)){
       $fileExt = explode('.',$custom_file_name);
       $fileActualExt = strtolower(end($fileExt));
       $allowed = array('audio/mpeg', 'audio/x-mp3', 'audio/wav', 'audio/x-wav');
@@ -169,7 +167,7 @@ session_start();
           }
         }
       }
-      else if ($tempo == "custom" && $custom_file_error == 4){
+      else if ($tempo == "custom"  && $custom_file_error == 4){
         if(empty($_POST["custom_bpm"])){
           $custom_error .= "Please provide a description of your custom tempo OR upload a recording of a solo performance to align accompaniment with. <br/>";
         }
@@ -201,14 +199,32 @@ session_start();
       $full_name = $first_name . " " . $last_name;
       $status_msg = "Status1";
 
-      $sql = "INSERT INTO users (status_msg, order_num, full_name, mail_from, piece_name, imslp, music_file, tuning_note, bpm, custom_bpm, custom_file, note_type, recording, questions)
-      SELECT '$status_msg', '$order_num', '$full_name', '$mail_from', '$piece_name', '$imslp', '$music_file', '$tuning_note', '$bpm', '$custom_bpm', '$custom_file', '$note_type', '$recording', '$questions'
+      $sql = "INSERT INTO Users (StatusMsg, OrderNumber, FullName, Email, PieceName, IMSLP, MusicFile, TuningNote, Tempo, BPM, CustomBPM, CustomFile, NoteType, Recording, Questions)
+      SELECT '$status_msg', '$order_num', '$full_name', '$email', '$piece_name', '$imslp', '$music_file', '$tuning_note', '$tempo', '$bpm', '$custom_bpm', '$custom_file', '$note_type', '$recording', '$questions'
       FROM DUAL
-      WHERE NOT EXISTS (SELECT * FROM users WHERE order_num=$order_num ) LIMIT 1;";
+      WHERE NOT EXISTS (SELECT * FROM Users WHERE OrderNumber=$order_num ) LIMIT 1;";
 
       if ($conn->query($sql)) {
         $_SESSION["order"] = $order_num;
-        header("Location: send_order_number.php");
+        $body = '<p>Hi, ' . $full_name . ' </p><br><p> This is your order number: <b> ' . $order_num . '</b>.</p><br>'.
+        '<h4>Order Summary</h4>'.
+        '<p>Name of Piece: <span></span>' . $piece_name . '</p>'.
+        '<p>Tuning Note: <span></span>' . $tuning_note . '</p>'.
+        '<p>Note Type: <span></span>' . $note_type . '</p>'.
+        '<p>Tempo: <span></span>' . $custom_bpm . $bpm . '</p>'.
+        '<p>Recording Type: <span></span>' . $recording . '</p>'.
+        '<p>Questions/Comments: <span></span>' . $questions . '</p>'.
+        '<br><br>'.
+        '<p>Backlight Recordings</p>'
+        ;
+        $subject = "BacklightRecordings: Your Order Number";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: orders@backlightrecordings.com" . "\r\n" . "CC: backlightrecordings@gmail.com";
+        ob_start();
+        $mailsend = mail("$email","$subject","$body","$headers");
+        ob_end_clean();
+        header("Location: status?order=" . $order_num);
         exit;
       }
       else {
@@ -241,9 +257,9 @@ session_start();
 
 
   <main>
-    <div id="home_header">
+    <!-- <div id="home_header">
       <a href="index.php"><img src ="images/pianopartner.png" id="icon_logo"></a>
-    </div>
+    </div> -->
 
 
 
@@ -271,7 +287,7 @@ session_start();
         </div>
         <div class="">
           <label for="email">Email:<span class="form-error"><?php echo $email_error;?> </span></label>
-          <input type="email" id="email" name="email" class="input-1-2" value="<?php echo stripslashes($mail_from);?>">
+          <input type="email" id="email" name="email" class="input-1-2" value="<?php echo stripslashes($email);?>">
         </div>
       </fieldset>
       <fieldset>
@@ -306,7 +322,9 @@ session_start();
           <label for="c"  class=""><input type="radio" id="c" name="tuning_note" value="C" <?php if (isset($tuning_note) && $tuning_note == "C") echo "checked"; ?>>C</label>
         </div>
         <label>Tempo:<span class="form-error"><?php echo $tempo_error;?> </span></label>
-        <label for="standard"  class=""><input type="radio" id="standard" name="tempo" onclick="TempoDisplay()" value="standard" <?php if (isset($tempo) && $tempo == "standard") echo "checked"; ?>>Standard</label>
+        <label for="standard"  class="">
+          <input type="radio" id="standard" name="tempo" onclick="TempoDisplay()" value="standard" <?php if (isset($tempo) && $tempo == "standard") echo "checked"; ?>>Standard
+        </label>
         <div id = "tempo_div1" class="tempo_div"></div>
         <?php
         if (isset($tempo) && $tempo == "standard"){
@@ -324,17 +342,16 @@ session_start();
         ?>
         <label for="custom"  class="">
           <input type="radio" id="custom" name="tempo" onclick="TempoDisplay()" value="custom" <?php if (isset($tempo) && $tempo == "custom") echo "checked"; ?>>Custom
-          <span id="custom_span"></span>
+          <span id="custom_span"><?php if (isset($tempo) && $tempo == "custom") echo " - Provide a description or upload a recording"; ?></span>
           <div class="form-error"> <?php echo $custom_error ?> </div>
         </label>
         <div id = "tempo_div2" class="tempo_div"></div>
         <?php
         if (isset($tempo) && $tempo == "custom"){
-          $stripped_custom = stripslashes($custom_bpm);
           ?>
           <div class="tempo_div">
             <label for="custom_bpm">Describe your desired tempo:</label>
-            <textarea id="custom_bpm" name="custom_bpm" class="input-1-2">' <?php echo $stripped_custom; ?> '</textarea>
+            <textarea id="custom_bpm" name="custom_bpm" class="input-1-2"><?php echo stripslashes($custom_bpm);?></textarea>
             <label for="customfile">Select a recording of solo performance:<span class="form-error"> <?php echo  $customfile_error; ?> </span></label>
             <input type="file" id="customfile" name="customfile" class="input-1-2">
           </div>

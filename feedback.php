@@ -12,12 +12,12 @@ session_start();
   <h1>Feedback from our Customers</h1>
   <?php
     if ($_SESSION['active']){
-    $sql = "SELECT feedback_msg FROM feedback;";
+    $sql = "SELECT Feedback.FeedbackMsg, Users.OrderNumber, Users.PieceName FROM Feedback LEFT JOIN Users ON Feedback.OrderNumber=Users.OrderNumber;";
     if ($stmt = $conn->prepare($sql)) {
       $stmt->execute();
-      $stmt->bind_result($feedback_msg);
+      $stmt->bind_result($feedback_msg, $order_num, $piece_name);
       while ($stmt->fetch()) {
-          printf("<p>%s\n</p>", $feedback_msg);
+          printf("<p>%s (%i)\n %s\n</p>",$piece_name, $order_num, $feedback_msg);
       }
       $stmt->close();
     }
@@ -25,7 +25,7 @@ session_start();
     $conn -> close();
     }
     else {
-        header("Location: admin.php");
+        header("Location: admin");
     }
 
    ?>
