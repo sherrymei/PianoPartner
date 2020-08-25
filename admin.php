@@ -43,11 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
+  
   <script src=js/admin.js></script>
-</body>
-
-</html>
+  <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

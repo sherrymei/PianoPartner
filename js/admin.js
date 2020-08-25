@@ -15,6 +15,21 @@ function updateUserStatus(user_id) {
 
 }
 
+function deleteOrder(user_id){
+	var order = document.getElementById("order"+user_id).innerHTML;
+	var data = JSON.stringify({'order_num':order});
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+       if (this.readyState == 4 && this.status == 200) {
+		   location.reload();
+      }
+    };
+    xmlhttp.open("POST","delete_order.php",true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("data=" + data);
+}
+
+
 
 function saveStatus2Info(user_id,tempo){
   var order = document.getElementById("order"+user_id).innerHTML;
@@ -50,3 +65,4 @@ function saveStatus2Info(user_id,tempo){
     xmlhttp.send("data=" + data);
 
 }
+

@@ -28,14 +28,5 @@ session_start();
         header("Location: admin");
     }
 
-   ?>
-
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
-</body>
-
-</html>
+include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

@@ -5,10 +5,8 @@ include 'includes/connect_mysql.php';
 include 'includes/html_head.php';
 session_start();
 
-?>
 
-<body>
-  <?php
+
   $f_name_error = $l_name_error = $email_error = $p_name_error = $imslp_error = $musicfile_error = $tune_note_error = $tempo_error = $bpm_error = $custom_error = $note_type_error = $recording_error = "";
   $order_num = $full_name = $first_name = $last_name = $email = $piece_name = $imslp = $music_file = $tuning_note = $tempo =  $bpm = $custom_bpm = $custom_file = $note_type = $recording = $questions = "";
 
@@ -254,7 +252,13 @@ session_start();
     return $data;
   }
   ?>
-
+ <body>
+ <nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/">
+    <img src="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    Backlight Recordings
+  </a>
+</nav>
 
   <main>
     <!-- <div id="home_header">
@@ -392,14 +396,12 @@ session_start();
 
       </div>
     </div>
+	
 
 
   </main>
-
-
-  <script src=js/dynamic-order-form.js></script>
-</body>
-
-</html>
-
+  <?php include 'includes/user_foot.php'; ?>
+	<script src=js/dynamic-order-form.js></script>
+	<?php include 'includes/html_foot.php'; ?>
+  
 <?php ob_flush(); ?>

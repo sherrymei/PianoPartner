@@ -40,18 +40,11 @@ session_start();
 
         if ($stmt = $conn->query($sql)) {
           while ($row = $stmt->fetch_assoc()) {
-            $status_row = $row["StatusMsg"];
             $user_id = $row["UserID"];
             ?>
             <tr>
               <td>
-                <select name="status" class="status" id="status<?php echo $user_id;?>" onchange="updateUserStatus(<?php echo $user_id;?>)">
-                  <option value="Status1" <?php if ($status_row=='Status1') echo "selected"; ?>>Status 1</option>
-                  <option value="Status2" <?php if ($status_row=='Status2') echo "selected"; ?>>Status 2</option>
-                  <option value="Status3" <?php if ($status_row=='Status3') echo "selected"; ?>>Status 3</option>
-                  <option value="Status4" <?php if ($status_row=='Status4') echo "selected"; ?>>Status 4</option>
-                  <option value="Status5" <?php if ($status_row=='Status5') echo "selected"; ?>>Status 5</option>
-                </select>
+				<button id="delete<?php echo $user_id; ?>" onclick="deleteOrder(<?php echo $user_id; ?>);">Delete</button>
               </td>
               <td><a id="order<?php echo $user_id;?>" href="order_info?userid=<?php echo $user_id;?>"> <?php echo $row["OrderNumber"]; ?> </a></td>
               <td><?php echo $row["FullName"]; ?></td>
@@ -76,12 +69,6 @@ session_start();
 
   ?>
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
   <script src=js/admin.js></script>
-</body>
-
-</html>
+  <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

@@ -5,16 +5,6 @@ include 'includes/connect_mysql.php';
 include 'includes/html_head.php';
 session_start();
 
-?>
-
-
-<body>
-  <script src="https://www.paypal.com/sdk/js?client-id=sb" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
- </script>
-
-
-  <?php
-
   $order_num = "";
   if (isset($_GET["order"])) {
      $order_num = $_GET["order"];
@@ -35,7 +25,17 @@ session_start();
 
 
    ?>
+   <body>
+    <nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/">
+    <img src="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    Backlight Recordings
+  </a>
+</nav>
 <div id="status_fullpage">
+
+  <script src="https://www.paypal.com/sdk/js?client-id=sb" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+ </script>
 
   <div class="section">
     <!-- <div id="home_header">
@@ -71,14 +71,21 @@ session_start();
         <p>Amount Due: $<?php echo $amount; ?>.00 </p>
 
         <!-- <div id="paypal-button-container"></div> -->
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" onsubmit="return confSubmit();">
+<!--        <form action="https://www.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top" onsubmit="return confSubmit();">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="JG7HJE92MG5W8">
         <label for="accept"><input id="accept" type="checkbox">I agree to the <a href="terms_and_conditions">Terms and Conditons</a></label>
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
-
+-->
+		<!-- sandbox -->
+		<form action="https://www.sandbox.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="HJ55R2Q7XJSEY">
+		<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
 
         <?php
         break;
@@ -95,7 +102,7 @@ session_start();
       case "Status5":
         ?>
         <p>Your order is ready. Please check your inbox.</p>
-        <p>You can provide any feedback here or by replying to your email. Feedback will be only be viewed by us and be used for improveement. </p>
+        <p>You can provide any feedback here or by replying to your email. Feedback will be only be viewed by us and be used for improvement. </p>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
           <textarea class="input-1-2" name="feedback"></textarea><br>
           <button type="submit">SEND</button>
@@ -117,15 +124,8 @@ session_start();
  <div id="orderd"><a href='index.php' class="button">EXIT</a></div>
  </div>
 </div>
+<?php include 'includes/user_foot.php'; ?>
 
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="fullpage.js/vendors/scrolloverflow.js"></script>
-  <script src="fullpage.js/dist/fullpage.js"></script>
   <script src=js/status.js></script>
-
-</body>
-
-</html>
+  <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>
