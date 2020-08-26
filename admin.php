@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
   </div>
 
-  
   <script src=js/admin.js></script>
   <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

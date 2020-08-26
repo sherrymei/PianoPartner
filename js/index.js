@@ -1,7 +1,4 @@
 var myFullpage = new fullpage('#fullpage', {
-  css3:true,
-  menu: '#menu',
-
   autoScrolling: false,
 	fitToSection: false
 });

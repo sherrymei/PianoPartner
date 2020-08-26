@@ -1,3 +1,2 @@
 ignore/*
 vendor/*
-includes/connect_mysql.php

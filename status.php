@@ -74,11 +74,11 @@ session_start();
 <!--        <form action="https://www.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top" onsubmit="return confSubmit();">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="JG7HJE92MG5W8">
+        <input type="hidden" name="return" value="http://www.backlightrecordings.com/success?order="<?php echo $order_num ?>>
         <label for="accept"><input id="accept" type="checkbox">I agree to the <a href="terms_and_conditions">Terms and Conditons</a></label>
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
--->
+        </form> -->
 		<!-- sandbox -->
 		<form action="https://www.sandbox.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top">
 		<input type="hidden" name="cmd" value="_s-xclick">

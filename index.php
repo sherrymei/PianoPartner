@@ -38,7 +38,7 @@ session_start();
 
   ?>
 
-  
+
 <body>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -59,7 +59,7 @@ session_start();
 	</header>
 
   <div class="container">
-  
+
     <div >
       <form  class="form-inline" method="GET" id="login" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <span><?php echo $error_msg ?></span>
@@ -85,7 +85,8 @@ session_start();
     </div>
     <div  id="order_section">
       <h1 class="text-center"> How to Order Your Own </h1>
-      <p> Fill out the order form. You will receive an order number for the status of your order. You can check back on your status using your order number. When we receive your form, please wait up to 48 hours for our accompanist to review your order and respond to any questions you may have and provide a final price. Then please proceed to pay through Paypal. Once we receive your payment, please wait up to a week for audio recordings and up to 2 weeks for video recordings. After, the accompanist will upload the file or link for you only. You can only access the YouTube video with your Google account. If you choose an audio file or video file, you can download it and play it offline wherever you go. </p>
+      <p> How it works: Just like for every performance, you have to make sure everyone that you’re performing with jive together. So we want to make sure we replicate that same mindset. That’s why we’re offering you an obligation-free chance before we settle on this partnership. The first step is just an order inquiry. Let us know what you would like, and we’ll respond within 48 hours to see how we can best fulfill your needs. (You will receive an order number for the status of your order. You can check back on your status using your order number. We will answer any of your questions and respond with a final price.) If you think we’re the right fit for you, that’s great! We’re honored! Once we receive your order payment safe and securely through Paypal, we’ll get right to preparing your recording. On average, please wait up to a week for audio recordings and up to 2 weeks for video recordings. After, the accompanist will email the file or link for you only. You can only access the youtube video with your email address. If you choose an audio file or video file, you can download it and play it offline wherever you go.
+ </p>
 
       <table id="rates_table">
         <caption>RATES</caption>
@@ -98,7 +99,7 @@ session_start();
         </thead>
         <tfoot>
           <tr>
-            <td colspan="3">$20 Flat Rate for a video that's $20 and under</td>
+            <td colspan="3">Minimum $20 for a video</td>
           </tr>
           <tr>
             <td colspan="3">above $20, audio and video at no extra cost</td>
@@ -122,12 +123,14 @@ session_start();
           </tr>
         </tbody>
       </table>
+      <p>Standard - 1 constant tempo per every tempo marking or you can leave it to the accompanist’s interpretation</p>
+      <p>Custom - if you want the tempo to be fluid, please describe what you would like or provide a recording our accompanist can play to match you</p>
       <div id="orderd"><a href='order_form' class="button" >Order</a></div>
     </div>
     <div  id="about_section">
       <h1 class="text-center"> About </h1>
       <p>
-        All our studio recordings are recorded from our grand piano played by our professional piano accompanist who has been accompanying all different instrumentalists during their recitals, conservatory auditions, and concerto competitions for almost a decade. She has worked with very young students starting from the suzuki program to professional instrumentalists.
+        All our studio recordings are recorded on our grand piano played by our professional piano accompanist who has been accompanying all different instrumentalists during their recitals, conservatory auditions, and concerto competitions for almost a decade. She has worked with very young students starting from the suzuki program to professional instrumentalists.
       </p>
     </div>
     <div  id="contact_section">
@@ -143,9 +146,12 @@ session_start();
         </fieldset>
       </form>
     </div>
+    <footer>
+      <a href="files/BacklightRecordings_Privacy_Policy.pdf">Privacy Policy</a>
+    </footer>
   </div>
 	<?php include 'includes/user_foot.php'; ?>
-  
+
   <script src=js/index.js></script>
 <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

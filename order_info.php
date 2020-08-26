@@ -97,7 +97,7 @@ session_start();
 
   ?>
 
-  
+
   <script src=js/admin.js></script>
   <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>
