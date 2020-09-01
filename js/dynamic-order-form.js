@@ -9,6 +9,7 @@ function TempoDisplay(){
     var bpm_text = document.createTextNode("Beats per Minute:");
     var note_text = document.createTextNode("Type of Note:");
 
+    var bpm_div = document.createElement("div");
     var bpm_label = document.createElement("label");
     var bpm_number = document.createElement("input");
 
@@ -26,7 +27,9 @@ function TempoDisplay(){
     var quarter_note_radio = document.createElement("input");
     var eighth_note_radio = document.createElement("input");
 
-
+    var half_note_div = document.createElement("div");
+    var quarter_note_div = document.createElement("div");
+    var eighth_note_div = document.createElement("div");
 
     bpm_number.setAttribute("id","bpm");
     bpm_number.setAttribute("type","number");
@@ -34,25 +37,41 @@ function TempoDisplay(){
     bpm_number.setAttribute("min","40");
     bpm_number.setAttribute("max","200")
     bpm_number.setAttribute("required","");
+    bpm_number.setAttribute("class", "form-control");
+
+    bpm_label.setAttribute("for","bpm");
+    bpm_label.setAttribute("class","col-sm-10 col-form-label");
+
+    bpm_div.setAttribute("class","form-group row");
 
     half_note_label.setAttribute("for","half_note");
+    half_note_label.setAttribute("class","form-check-label");
     quarter_note_label.setAttribute("for","quarter_note");
+    quarter_note_label.setAttribute("class","form-check-label");
     eighth_note_label.setAttribute("for","eighth_note");
+    eighth_note_label.setAttribute("class","form-check-label");
 
     half_note_radio.setAttribute("type","radio");
     half_note_radio.setAttribute("id","half_note");
     half_note_radio.setAttribute("name","note_type");
     half_note_radio.setAttribute("value","Half Note");
+    half_note_radio.setAttribute("class","form-check-input");
 
     quarter_note_radio.setAttribute("type","radio");
     quarter_note_radio.setAttribute("id","quarter_note");
     quarter_note_radio.setAttribute("name","note_type");
     quarter_note_radio.setAttribute("value","Quarter Note");
+    quarter_note_radio.setAttribute("class","form-check-input");
 
     eighth_note_radio.setAttribute("type","radio");
     eighth_note_radio.setAttribute("id","eighth_note");
     eighth_note_radio.setAttribute("name","note_type");
     eighth_note_radio.setAttribute("value","Eighth Note");
+    eighth_note_radio.setAttribute("class","form-check-input");
+
+    half_note_div.setAttribute("class","form-check");
+    quarter_note_div.setAttribute("class","form-check");
+    eighth_note_div.setAttribute("class","form-check");
 
     bpm_label.appendChild(bpm_text);
     note_label.appendChild(note_text);
@@ -66,13 +85,19 @@ function TempoDisplay(){
     eighth_note_label.appendChild(eighth_note_radio);
     eighth_note_label.appendChild(eighth_note_text);
 
+    half_note_div.appendChild(half_note_label);
+    quarter_note_div.appendChild(quarter_note_label);
+    eighth_note_div.appendChild(eighth_note_label);
+
+    bpm_div.appendChild(bpm_label);
+    bpm_div.appendChild(bpm_number);
 
     tempodiv1.appendChild(note_label);
-    tempodiv1.appendChild(half_note_label);
-    tempodiv1.appendChild(quarter_note_label);
-    tempodiv1.appendChild(eighth_note_label);
-    tempodiv1.appendChild(bpm_label);
-    tempodiv1.appendChild(bpm_number);
+    tempodiv1.appendChild(half_note_div);
+    tempodiv1.appendChild(quarter_note_div);
+    tempodiv1.appendChild(eighth_note_div);
+    tempodiv1.appendChild(bpm_div);
+    // tempodiv1.appendChild(bpm_number);
 
   }
   else if (document.getElementById('custom').checked){
@@ -93,13 +118,13 @@ function TempoDisplay(){
       custom_bpm_label.setAttribute("for","custom_bpm");
       custom_bpm_textarea.setAttribute("id","custom_bpm");
       custom_bpm_textarea.setAttribute("name","custom_bpm");
-      custom_bpm_textarea.setAttribute("class", " input-1-2");
+      custom_bpm_textarea.setAttribute("class", "form-control");
 
       custom_file_label.setAttribute("for","customfile");
       custom_file_input.setAttribute("type", "file");
       custom_file_input.setAttribute("id","customfile");
       custom_file_input.setAttribute("name","customfile");
-      custom_file_input.setAttribute("class","input-1-2");
+      custom_file_input.setAttribute("class","form-control-file");
 
 
       custom_bpm_label.appendChild(custom_bpm_text);
@@ -153,11 +178,6 @@ personalInfo.addEventListener("click", function() {
 
 });
 
-/*
-Fermatas will be held for twice the duration of the note
-Ritardando and accelerando will be up to the proxy of the accompanist to the defined speed you indicate for that section
-For cadenzas, you should pause the recording and fast forward to the time provided to match the a tempo marking before your next entrance
-*/
 
 tempoInfo.addEventListener("click", function() {
 

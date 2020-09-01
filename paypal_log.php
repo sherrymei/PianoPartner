@@ -1,4 +1,5 @@
 <?php ob_start(); ?>
+
 <?php
 
 include 'includes/connect_mysql.php';
@@ -8,6 +9,7 @@ session_start();
 ?>
 
 <body>
+
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">Backlight Recordings</a>
@@ -16,23 +18,24 @@ session_start();
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" href="admin_main">Main </a>
-          <a class="nav-link" href="orders_table">Orders</a>
-          <a class="nav-link active" href="feedback">Feedback<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="paypal_log">Paypal Log</a>
+          <a class="nav-link " href="admin_main">Main </a>
+          <a class="nav-link" href="orders_table">Orders </a>
+          <a class="nav-link" href="feedback">Feedback</a>
+          <a class="nav-link active" href="paypal_log">Paypal Log <span class="sr-only">(current)</span> </a>
         </div>
       </div>
     </nav>
   </header>
-  <h1>Feedback from our Customers</h1>
-  <?php
+
+  <main class="container">
+    <?php
     if ($_SESSION['active']){
-    $sql = "SELECT Feedback.FeedbackMsg, Users.OrderNumber, Users.PieceName FROM Feedback LEFT JOIN Users ON Feedback.UserID=Users.UserID;";
+    $sql = "SELECT * FROM Paypal;";
     if ($stmt = $conn->prepare($sql)) {
       $stmt->execute();
-      $stmt->bind_result($feedback_msg, $order_num, $piece_name);
+      $stmt->bind_result($transaction_time, $order_num, $transaction_id, $paypal_status, $amount_paid);
       while ($stmt->fetch()) {
-          printf("<p>\"%s\" <br>  -  %s (%s)</p><br>",$feedback_msg, $order_num, $piece_name);
+          printf("<p>%s (%s) - At %s, order #%s paid $%d</p>",$paypal_status,$transaction_id,$transaction_time,$order_num,$amount_paid);
       }
       $stmt->close();
     }
@@ -41,6 +44,9 @@ session_start();
     else {
         header("Location: admin");
     }
+     ?>
+  </main>
 
-include 'includes/html_foot.php'; ?>
+   <script src=js/admin.js></script>
+<?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

@@ -1,9 +1,3 @@
-var myFullpage = new fullpage('#fullpage', {
-  autoScrolling: false,
-	fitToSection: false
-});
-
-
 function sendEmail() {
   var name = document.getElementById("contact_name").value;
   var mail = document.getElementById("contact_email").value;

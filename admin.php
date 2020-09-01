@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->fetch();
       if ($password==$pass){
         $_SESSION["active"] = true;
-        header("Location: orders_table");
+        header("Location: admin_main");
         exit;
       }
       $stmt->close();
@@ -34,12 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <body>
+  <div class="container">
+  <h1  id="main_h1" class="text-center"> Backlight Recordings</h1>
 
-  <h1 id="main_h1"> Backlight Recordings</h1>
-  <div class="form">
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <input type="password" id="password" name="password">
-      <input type="submit" name="ok" value="OK" id="submit_button">
+      <div class="form">
+        <div class="form-group"><input type="password" id="password" class="form-control" name="password"></div>
+        <input type="submit" name="ok" value="OK" id="submit_button">
+      </div>
     </form>
   </div>
 

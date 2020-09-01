@@ -5,7 +5,6 @@ include 'includes/connect_mysql.php';
 include 'includes/html_head.php';
 session_start();
 
-  $order_num = "";
   if (isset($_GET["order"])) {
      $order_num = $_GET["order"];
      $_SESSION["order"] = $order_num;
@@ -13,47 +12,49 @@ session_start();
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($_POST['feedback']){
+    if ($_POST['feedback']) {
       $feedback = $_POST['feedback'];
-      $sql = "INSERT INTO feedback (feedback_msg) VALUES ('$feedback');";
-      $result = $conn->query($sql);
-      if ($result) {
-        header("Location: index.php");
+      $order_num = $_SESSION["order"];
+      $user_id = $_POST['user'];
+      if ($stmt0 = $conn->prepare("INSERT INTO Feedback (UserID,FeedbackMsg) VALUES (?,?)")){
+        $stmt0 ->bind_param("is", $user_id, $feedback);
+        $stmt0 ->execute();
+        $stmt0 ->close();
       }
+      else {
+        echo $stmt->error;
+      }
+      $conn->close();
     }
   }
 
 
    ?>
    <body>
-    <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="/">
-    <img src="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-    Backlight Recordings
-  </a>
-</nav>
-<div id="status_fullpage">
+     <nav class="navbar navbar-light bg-light">
+       <a class="navbar-brand" href="/">
+         <img src="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+         Backlight Recordings
+       </a>
+     </nav>
+     <div class="container">
 
-  <script src="https://www.paypal.com/sdk/js?client-id=sb" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
- </script>
+       <script src="https://www.paypal.com/sdk/js?client-id=sb" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+       </script>
 
-  <div class="section">
-    <!-- <div id="home_header">
-      <a href="index.php"><img src ="images/pianopartner.png" id="icon_logo"></a>
-    </div> -->
-  <h3>Status information for Order # <?php echo $_SESSION["order"]; ?> </h3>
-  <p id="status_bookmark">You can bookmark this page to check your status. </p>
+       <div class="section">
+         <h3>Status information for Order # <?php echo $_SESSION["order"]; ?> </h3>
+         <p id="status_bookmark">You can bookmark this page to check your status. </p>
 
-  <div id="statusBox" >
+         <div id="statusBox" >
 
   <?php
 
-  if ($stmt1 = $conn->prepare("SELECT Users.StatusMsg, Users.Tempo, Users.Recording, Payment.Pages, Payment.Class, Payment.Amount FROM Users LEFT JOIN Payment ON Users.OrderNumber = Payment.OrderNumber WHERE Users.OrderNumber = ?;")){
+  if ($stmt1 = $conn->prepare("SELECT Users.UserID, Users.StatusMsg, Users.Tempo, Users.Recording, Payment.Pages, Payment.Class, Payment.Amount FROM Users LEFT JOIN Payment ON Users.OrderNumber = Payment.OrderNumber WHERE Users.OrderNumber = ?;")){
     $stmt1->bind_param('i', $order_num);
     $stmt1->execute();
-    $stmt1->bind_result($status_msg, $tempo, $recording, $pages, $class, $amount);
+    $stmt1->bind_result($user_id, $status_msg, $tempo, $recording, $pages, $class, $amount);
     $stmt1->fetch();
-
 
     switch ($status_msg) {
       case "Status1":
@@ -71,7 +72,7 @@ session_start();
         <p>Amount Due: $<?php echo $amount; ?>.00 </p>
 
         <!-- <div id="paypal-button-container"></div> -->
-<!--        <form action="https://www.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top" onsubmit="return confSubmit();">
+       <!-- <form action="https://www.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top" onsubmit="return confSubmit();">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="JG7HJE92MG5W8">
         <input type="hidden" name="return" value="http://www.backlightrecordings.com/success?order="<?php echo $order_num ?>>
@@ -105,6 +106,7 @@ session_start();
         <p>You can provide any feedback here or by replying to your email. Feedback will be only be viewed by us and be used for improvement. </p>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
           <textarea class="input-1-2" name="feedback"></textarea><br>
+          <input type="hidden" name="user" value="<?php echo $user_id;?>"/>
           <button type="submit">SEND</button>
         </form>
         <?php
@@ -121,7 +123,6 @@ session_start();
    ?>
 
  </div>
- <div id="orderd"><a href='index.php' class="button">EXIT</a></div>
  </div>
 </div>
 <?php include 'includes/user_foot.php'; ?>

@@ -9,9 +9,10 @@ $order_num = $data -> order_num;
 $stmt = $conn->prepare("DELETE FROM Users WHERE OrderNumber = ?");
 $stmt->bind_param( 'i', $order_num);
 $stmt->execute();
+echo "JSON - " . json_encode($stmt->error);
 $stmt->close();
 $conn->close();
 
-echo "JSON - " . json_encode($data);
+
 
  ?>

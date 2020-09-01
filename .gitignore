@@ -1,2 +1,5 @@
 ignore/*
 vendor/*
+includes/connect_mysql.php
+privacy_policy.html
+terms_and_conditions.html

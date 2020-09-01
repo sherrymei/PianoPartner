@@ -19,9 +19,11 @@ function deleteOrder(user_id){
 	var order = document.getElementById("order"+user_id).innerHTML;
 	var data = JSON.stringify({'order_num':order});
 	var xmlhttp = new XMLHttpRequest();
+  console.log(data);
 	xmlhttp.onreadystatechange = function() {
        if (this.readyState == 4 && this.status == 200) {
-		   location.reload();
+       console.log(xmlhttp.responseText);
+       location.reload();
       }
     };
     xmlhttp.open("POST","delete_order.php",true);
@@ -33,14 +35,17 @@ function deleteOrder(user_id){
 
 function saveStatus2Info(user_id,tempo){
   var order = document.getElementById("order"+user_id).innerHTML;
-  var class_piece = document.getElementById("classpiece").value;
-  var pages = document.getElementById("pages").value;
+  var class_select = document.getElementById("classpiece");
+  var class_piece = class_select.value;
+  var pages_input = document.getElementById("pages");
+  var pages = pages_input.value;
   var amount = 0;
   if (tempo=="standard"){
     switch (class_piece) {
       case "Beginner": amount = pages * 2; break;
       case "Amateur":  amount = pages * 4; break;
       case "Virtuoso": amount = pages * 6; break;
+      default: amount = 0;
     }
   }
   else if (tempo=="custom"){
@@ -48,6 +53,7 @@ function saveStatus2Info(user_id,tempo){
       case "Beginner": amount = pages * 3; break;
       case "Amateur":  amount = pages * 6; break;
       case "Virtuoso": amount = pages * 9; break;
+      default: amount = 0;
     }
   }
   var data = JSON.stringify({'order_num':order, 'class_piece':class_piece, 'pages':pages, 'amount':amount});
@@ -56,13 +62,19 @@ function saveStatus2Info(user_id,tempo){
     xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         console.log(data);
-        document.getElementById("classpiece").style.display = "none";
-        document.getElementById("pages").style.display = "none";
+        var class_text = document.createElement("span");
+        class_text.innerHTML = class_piece;
+        class_select.parentNode.replaceChild(class_text, class_select);
+        var pages_text = document.createElement("span");
+        pages_text.innerHTML = pages;
+        pages_input.parentNode.replaceChild(pages_text,pages_input);
+        var amount_text = document.getElementById("amount");
+        amount_text.innerHTML = "$" + amount;
       }
     };
     xmlhttp.open("POST","insert_payment.php",true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("data=" + data);
 
-}
 
+}
