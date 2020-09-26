@@ -9,6 +9,9 @@ session_start();
 ?>
 
 <body>
+  <?php
+    if (isset($_SESSION["active"])){
+   ?>
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,6 +29,13 @@ session_start();
       </div>
     </nav>
   </header>
+<?php
+}
+else {
+  header("Location: admin");
+  exit;
+}
+?>
 
    <script src=js/admin.js></script>
 <?php include 'includes/html_foot.php'; ?>

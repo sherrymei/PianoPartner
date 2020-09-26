@@ -1,9 +1,9 @@
  <?php
 
- $dbServername = "servername";
- $dbUserName = "username";
- $dbPassword = "password";
- $dbName = "databasename";
+ $dbServername = "localhost";
+ $dbUserName = "root";
+ $dbPassword = "SQLserver@42";
+ $dbName = "pianopartner";
 
  $conn = new mysqli($dbServername, $dbUserName, $dbPassword, $dbName);
 

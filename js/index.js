@@ -33,3 +33,8 @@ function sendEmail() {
   xmlhttp.send("data=" + data);
 
 }
+
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

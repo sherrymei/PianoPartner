@@ -32,8 +32,16 @@ function deleteOrder(user_id){
 }
 
 
+function isVideo(recording){
+  if (recording=="Video File" || recording=="YouTube Link")
+    return true;
+  else return false;
+}
 
-function saveStatus2Info(user_id,tempo){
+
+
+function saveStatus2Info(user_id,tempo,recording){
+  console.log(user_id + " " + tempo + " " + recording);
   var order = document.getElementById("order"+user_id).innerHTML;
   var class_select = document.getElementById("classpiece");
   var class_piece = class_select.value;
@@ -47,6 +55,10 @@ function saveStatus2Info(user_id,tempo){
       case "Virtuoso": amount = pages * 6; break;
       default: amount = 0;
     }
+    console.log("amount - " + amount);
+    if (isVideo(recording) && amount<=20) {
+      amount = 20;
+    }
   }
   else if (tempo=="custom"){
     switch (class_piece) {
@@ -55,7 +67,12 @@ function saveStatus2Info(user_id,tempo){
       case "Virtuoso": amount = pages * 9; break;
       default: amount = 0;
     }
+    console.log("amount - " + amount);
+    if (isVideo(recording) && amount<=20){
+      amount = 20;
+    }
   }
+
   var data = JSON.stringify({'order_num':order, 'class_piece':class_piece, 'pages':pages, 'amount':amount});
 
   var xmlhttp = new XMLHttpRequest();
@@ -75,6 +92,4 @@ function saveStatus2Info(user_id,tempo){
     xmlhttp.open("POST","insert_payment.php",true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("data=" + data);
-
-
 }

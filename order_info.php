@@ -37,7 +37,7 @@ session_start();
 
   <?php
 
-    if ($_SESSION["active"]){
+    if (isset($_SESSION["active"])){
 
       $user_id = $_GET['userid'];
       $query = "SELECT * FROM Payment RIGHT JOIN Users ON Payment.OrderNumber = Users.OrderNumber WHERE Users.UserID=?";
@@ -49,11 +49,12 @@ session_start();
           $status_row = $row["StatusMsg"];
           $class_row = $row["Class"];
           $tempo_row = $row["Tempo"];
+          $recording_row = $row["Recording"];
           ?>
 
           <div class="row justify-content-around"><div class="col-4"> Order Number:  </div> <div id="order<?php echo $user_id;?>" class="col-4"> <?php echo  $row["OrderNumber"];?> </div></div>
           <div class="dropdown-divider"></div>
-          <form method="post" onsubmit="saveStatus2Info(<?php echo $user_id .",'". $tempo_row;?>');return false;">
+          <form method="post" onsubmit="saveStatus2Info(<?php echo $user_id .",'". $tempo_row . "','". $recording_row;?>');return false;">
             <fieldset>
                 <div class="row justify-content-around">
                   <div class="col-4"> Status: </div>

@@ -31,22 +31,24 @@ session_start();
 
    ?>
    <body>
-     <nav class="navbar navbar-light bg-light">
-       <a class="navbar-brand" href="/">
-         <img src="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-         Backlight Recordings
-       </a>
+<script src="https://www.paypal.com/sdk/js?client-id=AWetKhh9l71-TRMr1SHcDyOHxGIMZ9NGIrXkBMftMyRHzOCErjc--mebUzxIoQYOXMMzvbJbjiBRFdyc"></script>
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=AY9te3wD5b7VZxZgkqt8eZH-cXSInfVfvhe4rgCzC_RnudPNDaSajsDU1avOC8I_LPVzfvIzjHYWYkmX"></script> -->
+     <nav class="navbar navbar-dark bg-dark">
+       <a class="navbar-brand" href="/"><img src="images/IMG-4514.png" width="50" ></a>
      </nav>
      <div class="container">
 
-       <script src="https://www.paypal.com/sdk/js?client-id=sb" data-sdk-integration-source="button-factory"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
-       </script>
 
-       <div class="section">
-         <h3>Status information for Order # <?php echo $_SESSION["order"]; ?> </h3>
-         <p id="status_bookmark">You can bookmark this page to check your status. </p>
+       <div id="status-section">
+         <div class="text-center">
 
-         <div id="statusBox" >
+         <img src="images/order.png" class="img-fluid" width="200">
+
+         <h3>Order # <span id="order-no"><?php echo $_SESSION["order"]; ?></span> </h3>
+         <img src="images/IMG-4506.png" class="img-fluid" width="300">
+         <p>Thank you for ordering with us at Backlight Recordings! </p>
+          <p> You can bookmark this page to check your status. </p>
+           <h5 >- Status Information -</h5>
 
   <?php
 
@@ -59,35 +61,18 @@ session_start();
     switch ($status_msg) {
       case "Status1":
         ?>
-          <p>Your order number is " <?php echo $order_num; ?>". Keep it in a safe place!</p>
-          <p>We sent your order number to your email address.  </p>
+          <p>Your order number is <?php echo $order_num; ?>. Keep it in a safe place!</p>
+          <p>We sent your order number to your email address. Please also check your junk or spam folder. </p>
           <p>Please wait up to 48 hours for our accompanist to respond to your inquiry.</p>
         <?php
         break;
       case "Status2":
         ?>
-        <p>Your accompanist classifies this piece as <?php echo $class; ?> level piece that is <?php echo $pages; ?> pages long. </p>
-        <p>You decided it to be <?php echo $tempo; ?> recording. </p>
-        <p>You chose to receive the <?php echo $recording; ?>.</p>
-        <p>Amount Due: $<?php echo $amount; ?>.00 </p>
-
-        <!-- <div id="paypal-button-container"></div> -->
-       <!-- <form action="https://www.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top" onsubmit="return confSubmit();">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="JG7HJE92MG5W8">
-        <input type="hidden" name="return" value="http://www.backlightrecordings.com/success?order="<?php echo $order_num ?>>
-        <label for="accept"><input id="accept" type="checkbox">I agree to the <a href="terms_and_conditions">Terms and Conditons</a></label>
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form> -->
-		<!-- sandbox -->
-		<form action="https://www.sandbox.paypal.com/cgi-bin/webscr?custom=<?php echo $order_num; ?>" method="post" target="_top">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="hosted_button_id" value="HJ55R2Q7XJSEY">
-		<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-		</form>
-
+        <p>Your accompanist classifies this piece as a <?php echo $class; ?> level piece that is <?php echo $pages; ?> page(s) long. </p>
+        <p>You decided it to be a <?php echo $tempo; ?> recording. </p>
+        <p>You chose to receive a <?php echo $recording; ?>.</p>
+        <p>Amount Due: $<span id="amount"><?php echo $amount; ?></span>.00</p>
+        <div id="paypal-button-container"></div>
         <?php
         break;
       case "Status3":
@@ -123,10 +108,11 @@ session_start();
    ?>
 
  </div>
+</div>
+
  </div>
 </div>
 <?php include 'includes/user_foot.php'; ?>
-
   <script src=js/status.js></script>
   <?php include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

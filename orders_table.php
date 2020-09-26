@@ -30,7 +30,7 @@ session_start();
   <?php
 
 
-  // if ($_SESSION["active"]){
+  if (isset($_SESSION["active"])){
 
     ?>
 
@@ -84,8 +84,6 @@ session_start();
 
                 <?php
 
-
-
             }
             ?>
             </tbody>
@@ -103,11 +101,11 @@ session_start();
     <?php
 
     $conn->close();
-  // }
-  // else {
-  //   header("Location: admin");
-  //   exit;
-  // }
+  }
+  else {
+    header("Location: admin");
+    exit;
+  }
 
   ?>
 
