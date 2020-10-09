@@ -21,7 +21,6 @@ session_start();
           <a class="nav-link" href="admin_main">Main </a>
           <a class="nav-link active" href="orders_table">Orders <span class="sr-only">(current)</span></a>
           <a class="nav-link" href="feedback">Feedback</a>
-          <a class="nav-link" href="paypal_log">Paypal Log</a>
         </div>
       </div>
     </nav>
@@ -60,6 +59,7 @@ session_start();
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col"><?php echo $status_msg; ?> </th>
+                    <th scope="col">Date Time</th>
                     <th scope="col">Order Number</th>
                     <th scope="col">Guest Name</th>
                     <th scope="col">Email Address</th>
@@ -74,8 +74,9 @@ session_start();
 
                 <tr>
                   <td>
-                  <button id="delete<?php echo $user_id;?>" class="btn btn-danger" onclick="deleteOrder(<?php echo $user_id;?>);">Delete</button>
+                  <button id="delete<?php echo $user_id;?>" class="btn btn-danger" onclick="deleteOrder(<?php echo $user_id;?>);">DELETE</button>
                   </td>
+                  <td><?php echo $row["StatusChange"]; ?></td>
                   <td><a id="order<?php echo $user_id;?>" href="order_info?userid=<?php echo $user_id;?>"><?php echo $row["OrderNumber"];?></a></td>
                   <td><?php echo $row["Nombre"]; ?></td>
                   <td><?php echo $row["Email"]; ?></td>

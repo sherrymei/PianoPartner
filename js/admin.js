@@ -1,7 +1,8 @@
 function updateUserStatus(user_id) {
     var status = document.getElementById("status"+user_id).value;
     var order = document.getElementById("order"+user_id).innerHTML;
-    var data = JSON.stringify({'status':status, 'order_num':order});
+    var email = document.getElementById("email"+user_id).innerHTML;
+    var data = JSON.stringify({'status':status, 'order_num':order, 'email':email});
 
     var xmlhttp = new XMLHttpRequest();
 	   xmlhttp.onreadystatechange = function() {

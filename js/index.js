@@ -20,8 +20,14 @@ function sendEmail() {
         if (jsobj.error["name"]){
           document.getElementById("contact_name").style.border = '1px solid red';
         }
+        else {
+          document.getElementById("contact_name").style.border = '';
+        }
         if (jsobj.error["email"]){
           document.getElementById("contact_email").style.border = '1px solid red';
+        }
+        else {
+          document.getElementById("contact_email").style.border = '';
         }
       }
       document.getElementById("message").innerHTML = jsobj.response;

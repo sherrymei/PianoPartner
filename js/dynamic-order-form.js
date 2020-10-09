@@ -6,98 +6,93 @@ function TempoDisplay(){
 
   if (document.getElementById('standard').checked){
 
-    var bpm_text = document.createTextNode("Beats per Minute:");
-    var note_text = document.createTextNode("Type of Note:");
+    var row_div = document.createElement("div");
+    row_div.setAttribute("class", "row");
 
-    var bpm_div = document.createElement("div");
-    var bpm_label = document.createElement("label");
-    var bpm_number = document.createElement("input");
+    var col_6_div = document.createElement("div");
+    col_6_div.setAttribute("class", "col-sm-6");
+
+    var col_1_div = document.createElement("div");
+    col_1_div.setAttribute("class", "col-sm-1");
+
+    var col_5_div = document.createElement("div");
+    col_5_div.setAttribute("class", "col-sm-5");
+
+    var note_div = document.createElement("div");
+    note_div.setAttribute("class", "form-group");
+
+    var note_text = document.createTextNode("Type of Note: ");
 
     var note_label = document.createElement("label");
+    note_label.setAttribute("for","note_type");
 
-    var half_note_text = document.createTextNode("𝅗𝅥 - Half Note");
-    var quarter_note_text = document.createTextNode("𝅘𝅥 - Quarter Note");
-    var eighth_note_text = document.createTextNode("𝅘𝅥𝅮 - Eighth Note");
+    note_label.appendChild(note_text);
 
-    var half_note_label = document.createElement("label");
-    var quarter_note_label = document.createElement("label");
-    var eighth_note_label = document.createElement("label");
+    var note_select = document.createElement("select");
+    note_select.setAttribute("name","note_type");
+    note_select.setAttribute("id","note_type");
+    note_select.setAttribute("class","form-control");
 
-    var half_note_radio = document.createElement("input");
-    var quarter_note_radio = document.createElement("input");
-    var eighth_note_radio = document.createElement("input");
+    var none_option = document.createElement("option");
+    var half_note_option = document.createElement("option");
+    var quarter_note_option = document.createElement("option");
+    var eighth_note_option = document.createElement("option");
 
-    var half_note_div = document.createElement("div");
-    var quarter_note_div = document.createElement("div");
-    var eighth_note_div = document.createElement("div");
+    none_option.setAttribute("value","none");
+    half_note_option.setAttribute("value", "Half Note");
+    quarter_note_option.setAttribute("value","Quarter Note");
+    eighth_note_option.setAttribute("value","Eighth Note");
 
+    var half_note_text = document.createTextNode("𝅗𝅥  Half Note");
+    var quarter_note_text = document.createTextNode("𝅘𝅥  Quarter Note");
+    var eighth_note_text = document.createTextNode("𝅘𝅥𝅮  Eighth Note");
+
+    var equal_text = document.createTextNode("=");
+
+    half_note_option.appendChild(half_note_text);
+    quarter_note_option.appendChild(quarter_note_text);
+    eighth_note_option.appendChild(eighth_note_text);
+
+    note_select.appendChild(none_option);
+    note_select.appendChild(half_note_option);
+    note_select.appendChild(quarter_note_option);
+    note_select.appendChild(eighth_note_option);
+
+    // note_div.appendChild(note_label);
+    note_div.appendChild(note_select);
+
+    var bpm_div = document.createElement("div");
+    bpm_div.setAttribute("class","form-group");
+
+    var bpm_text = document.createTextNode("BPM:")
+
+    var bpm_label = document.createElement("label");
+    bpm_label.setAttribute("for","bpm");
+
+    var bpm_number = document.createElement("input");
     bpm_number.setAttribute("id","bpm");
     bpm_number.setAttribute("type","number");
     bpm_number.setAttribute("name","bpm");
     bpm_number.setAttribute("min","40");
     bpm_number.setAttribute("max","200")
     bpm_number.setAttribute("required","");
-    bpm_number.setAttribute("class", "form-control col-sm-2");
-
-    bpm_label.setAttribute("for","bpm");
-    bpm_label.setAttribute("class","col-form-label");
-
-    bpm_div.setAttribute("class","form-group");
-
-    half_note_label.setAttribute("for","half_note");
-    half_note_label.setAttribute("class","form-check-label");
-    quarter_note_label.setAttribute("for","quarter_note");
-    quarter_note_label.setAttribute("class","form-check-label");
-    eighth_note_label.setAttribute("for","eighth_note");
-    eighth_note_label.setAttribute("class","form-check-label");
-
-    half_note_radio.setAttribute("type","radio");
-    half_note_radio.setAttribute("id","half_note");
-    half_note_radio.setAttribute("name","note_type");
-    half_note_radio.setAttribute("value","Half Note");
-    half_note_radio.setAttribute("class","form-check-input");
-
-    quarter_note_radio.setAttribute("type","radio");
-    quarter_note_radio.setAttribute("id","quarter_note");
-    quarter_note_radio.setAttribute("name","note_type");
-    quarter_note_radio.setAttribute("value","Quarter Note");
-    quarter_note_radio.setAttribute("class","form-check-input");
-
-    eighth_note_radio.setAttribute("type","radio");
-    eighth_note_radio.setAttribute("id","eighth_note");
-    eighth_note_radio.setAttribute("name","note_type");
-    eighth_note_radio.setAttribute("value","Eighth Note");
-    eighth_note_radio.setAttribute("class","form-check-input");
-
-    half_note_div.setAttribute("class","form-check");
-    quarter_note_div.setAttribute("class","form-check");
-    eighth_note_div.setAttribute("class","form-check");
+    bpm_number.setAttribute("class", "form-control");
+    bpm_number.setAttribute("placeholder","200");
 
     bpm_label.appendChild(bpm_text);
-    note_label.appendChild(note_text);
 
-    half_note_label.appendChild(half_note_radio);
-    half_note_label.appendChild(half_note_text);
-
-    quarter_note_label.appendChild(quarter_note_radio);
-    quarter_note_label.appendChild(quarter_note_text);
-
-    eighth_note_label.appendChild(eighth_note_radio);
-    eighth_note_label.appendChild(eighth_note_text);
-
-    half_note_div.appendChild(half_note_label);
-    quarter_note_div.appendChild(quarter_note_label);
-    eighth_note_div.appendChild(eighth_note_label);
-
-    bpm_div.appendChild(bpm_label);
+    // bpm_div.appendChild(bpm_label);
     bpm_div.appendChild(bpm_number);
 
-    tempodiv1.appendChild(note_label);
-    tempodiv1.appendChild(half_note_div);
-    tempodiv1.appendChild(quarter_note_div);
-    tempodiv1.appendChild(eighth_note_div);
-    tempodiv1.appendChild(bpm_div);
-    // tempodiv1.appendChild(bpm_number);
+    col_6_div.appendChild(note_div);
+    col_1_div.appendChild(equal_text);
+    col_5_div.appendChild(bpm_div);
+
+    row_div.appendChild(col_6_div);
+    row_div.appendChild(col_1_div);
+    row_div.appendChild(col_5_div);
+
+    tempodiv1.appendChild(row_div);
 
   }
   else if (document.getElementById('custom').checked){

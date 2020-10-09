@@ -13,6 +13,25 @@ paypal.Buttons({
     label: 'paypal',
 
   },
+  onInit: function(data, actions) {
+
+    // Disable the buttons
+    actions.disable();
+
+    // Listen for changes to the checkbox
+    document.querySelector('#check')
+      .addEventListener('change', function(event) {
+
+        // Enable or disable the button when it is checked or unchecked
+        if (event.target.checked) {
+          actions.enable();
+        } else {
+          actions.disable();
+        }
+      });
+  },
+
+
   createOrder: function (data, actions) {
     const json = { "order_num": order_num };
     return fetch('payment.php', {

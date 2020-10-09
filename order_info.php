@@ -21,7 +21,6 @@ session_start();
           <a class="nav-link" href="admin_main">Main </a>
           <a class="nav-link active" href="orders_table">Orders <span class="sr-only">(current)</span></a>
           <a class="nav-link" href="feedback">Feedback</a>
-          <a class="nav-link" href="paypal_log">Paypal Log</a>
         </div>
       </div>
     </nav>
@@ -83,7 +82,7 @@ session_start();
                   <div class="col-4">
                     <select name="classpiece" class="" id="classpiece">
                       <option value="blank" ></option>
-                      <option value="Beginner" <?php if ($class_row=='Beginner') echo "selected"; ?>>Beginner</option>
+                      <option value="Simple" <?php if ($class_row=='Simple') echo "selected"; ?>>Simple</option>
                       <option value="Amateur"  <?php if ($class_row=='Amateur')  echo "selected"; ?>>Amateur</option>
                       <option value="Virtuoso" <?php if ($class_row=='Virtuoso') echo "selected"; ?>>Virtuoso</option>
                     </select>
@@ -115,7 +114,7 @@ session_start();
                 <div class="dropdown-divider"></div>
                 <div class="row justify-content-around"><div class="col-4"> Full Name:  </div> <div class="col-4"> <?php echo   $row["Nombre"]; ?> </div></div>
                 <div class="dropdown-divider"></div>
-                <div class="row justify-content-around"><div class="col-4"> Email Address:</div> <div class="col-4"> <?php echo   $row["Email"]; ?> </div></div>
+                <div class="row justify-content-around"><div class="col-4"> Email Address:</div> <div id="email<?php echo $user_id;?>" class="col-4"> <?php echo   $row["Email"]; ?> </div></div>
                 <div class="dropdown-divider"></div>
                 <div class="row justify-content-around"><div class="col-4"> Music Piece Name:  </div> <div class="col-4"> <?php echo   $row["PieceName"]; ?> </div></div>
                 <div class="dropdown-divider"></div>

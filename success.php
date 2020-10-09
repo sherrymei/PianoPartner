@@ -9,22 +9,12 @@ session_start();
 	if (isset($_GET['order'])){
     $status = "Status3";
 		$order_num = $_GET['order'];
-		// $paypal_status = $_GET['st'];
-		// $transactionID = $_GET['tx'];
-		// $amount = $_GET['amt'];
-    // $today = date("Y-m-d H:i:s");
-
-
 		$_SESSION["order"] = $order_num;
-		$stmt = $conn->prepare("UPDATE Users SET StatusMsg = ? WHERE OrderNumber = ?");
-		$stmt->bind_param( 'si', $status, $order_num);
+		date_default_timezone_set('EST');
+		$today = date("Y-m-d H:i:s");
+		$stmt = $conn->prepare("UPDATE Users SET StatusMsg = ?, StatusChange = ? WHERE OrderNumber = ?");
+		$stmt->bind_param( 'ssi', $status, $today, $order_num);
 		$stmt->execute();
-
-    // $stmt = $conn->prepare("INSERT INTO Paypal (TransactionTime, OrderNumber, TransactionID, PaypalStatus, Amount)
-    // VALUES (?,?,?,?,?); ");
-    //
-    // $stmt -> bind_param("sissd",$today,$order_num,$transactionID,$paypal_status,$amount);
-    // $stmt -> execute();
 		$stmt->close();
 		$conn->close();
 	}

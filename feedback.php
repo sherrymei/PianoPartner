@@ -19,12 +19,12 @@ session_start();
           <a class="nav-link" href="admin_main">Main </a>
           <a class="nav-link" href="orders_table">Orders</a>
           <a class="nav-link active" href="feedback">Feedback<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="paypal_log">Paypal Log</a>
         </div>
       </div>
     </nav>
   </header>
-  <h1>Feedback from our Customers</h1>
+  <div class="container">
+  <h1 class="text-center">Feedback from our Customers</h1>
   <?php
     if ($_SESSION['active']){
     $sql = "SELECT Feedback.FeedbackMsg, Users.OrderNumber, Users.PieceName FROM Feedback LEFT JOIN Users ON Feedback.UserID=Users.UserID;";
@@ -41,6 +41,9 @@ session_start();
     else {
         header("Location: admin");
     }
+    ?>
+  </div>
+    <?php
 
 include 'includes/html_foot.php'; ?>
 <?php ob_flush(); ?>

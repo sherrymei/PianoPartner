@@ -24,7 +24,6 @@ session_start();
           <a class="nav-link active" href="admin_main">Main <span class="sr-only">(current)</span></a>
           <a class="nav-link" href="orders_table">Orders </a>
           <a class="nav-link" href="feedback">Feedback</a>
-          <a class="nav-link" href="paypal_log">Paypal Log</a>
         </div>
       </div>
     </nav>

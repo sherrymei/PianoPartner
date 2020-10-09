@@ -33,15 +33,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<body>
-  <div class="container">
-  <h1  id="main_h1" class="text-center"> Backlight Recordings</h1>
-
+<body class="black-back">
+  <div class="container-fluid">
+    <h1 class="main_h1 text-center">BACKLIGHT RECORDINGS</h1>
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <div class="form">
-        <div class="form-group"><input type="password" id="password" class="form-control" name="password"></div>
-        <input type="submit" name="ok" value="OK" id="submit_button">
+        <div class="form-group row">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <input type="password" id="password" class="form-control" name="password">
+        </div>
+          <div class="col-4">
+            <input type="submit" name="ok" value="OK" id="submit_button">
+          </div>
       </div>
+
     </form>
   </div>
 
